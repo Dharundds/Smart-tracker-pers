@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  const [name,setName] = useState("")
+  const [age,setAge] = useState("")
+
+  const handleRequest = async ()=>{
+    const res = await fetch('http://127.0.0.1:8000/');
+    const data = await res.json();
+    console.log(data)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>hello</h1>
+     <button onClick={handleRequest}>Click</button>
+     {/* <h1>{name}:{age}</h1> */}
     </div>
   );
 }

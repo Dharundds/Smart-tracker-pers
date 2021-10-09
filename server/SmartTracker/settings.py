@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'PERs',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +101,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Rest framework conf and cors
+
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
