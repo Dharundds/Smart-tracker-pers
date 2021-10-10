@@ -1,20 +1,35 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import './App.css'
 
 function App() {
   const [name,setName] = useState("")
   const [age,setAge] = useState("")
 
-  const handleRequest = async ()=>{
-    const res = await fetch('http://127.0.0.1:8000/');
-    const data = await res.json();
-    console.log(data)
-  }
+  useEffect(()=>{
+    fetch('http://127.0.0.1:8000/',{
+      method:'GET',
+      headers:{
+        'Content-type':'application/json'
+      }
+    }).then((res)=>
+    { 
+      return res.json()
+    }).then((res)=> {
+      res.forEach(element => {
+       setName(element.name)
+       setAge(element.age)
+      });
+    })
+  },[])
 
   return (
     <div className="App">
+    <center>
      <h1>hello</h1>
-     <button onClick={handleRequest}>Click</button>
-     {/* <h1>{name}:{age}</h1> */}
+    <h1>Fetched from django ........</h1>
+     <h2>{name}</h2>
+     <h3>{age}</h3>
+     </center>
     </div>
   );
 }
