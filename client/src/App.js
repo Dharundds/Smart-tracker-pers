@@ -21,6 +21,20 @@ function App() {
       });
     })
   },[])
+  
+useEffect(()=>{
+  fetch('http://127.0.0.1:8000/getcaseview',{
+    method:"GET",
+    headers:{
+      'Content-type':'application/json'
+    }
+  }).then((res)=>{
+    return res.json()
+  }).then((res)=>{
+    res.forEach((res)=>console.log(res.case_number))
+  })
+})
+
 
   return (
     <div className="App">
