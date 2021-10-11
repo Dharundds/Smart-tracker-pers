@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import './App.css'
-
+import Login from "./Pages/Login";
 function App() {
   const [name,setName] = useState("")
   const [age,setAge] = useState("")
@@ -24,12 +24,7 @@ function App() {
 
   return (
     <div className="App">
-    <center>
-     <h1>hello</h1>
-    <h1>Fetched from django ........</h1>
-     <h2>{name}</h2>
-     <h3>{age}</h3>
-     </center>
+   <Login />
     </div>
   );
 }
