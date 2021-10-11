@@ -1,13 +1,16 @@
 from django.shortcuts import render
+from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import GeneralSerializer
-from .models import General
+from .serializers import *
+from .models import *
+import pandas as pd
+
 
 
 class HomeView(APIView):
     serializer_class = GeneralSerializer
-
+    
     def get(self, request):
         info = [{'name': info.name, 'age': info.age}
                 for info in General.objects.all()]
@@ -18,3 +21,14 @@ class HomeView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+class FeedExcelView(APIView):
+    serializer_class = CaseViewSerializer
+
+    def get(self,request):
+        data = [{'case_number':value.case_number,'parent_case':value.parent_case} 
+                for value in CaseView.objects.all() ]
+        return Response(data)
+    
+    def post(self,request):
+        pass
