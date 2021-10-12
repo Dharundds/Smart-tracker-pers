@@ -33,7 +33,7 @@ useEffect(()=>{
   }).then((res)=>{
     res.forEach((res)=>console.log(res.case_number))
   })
-})
+},[])
 
 
   return (
