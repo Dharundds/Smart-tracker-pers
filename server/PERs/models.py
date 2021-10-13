@@ -20,6 +20,14 @@ class CaseView(models.Model):
         return self.case_number+" | "+self.case_owner
 
 
+class PEModel(models.Model):
+    PE_name = models.CharField(max_length=255)
+    cnickname = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 
 
 class General(models.Model):
