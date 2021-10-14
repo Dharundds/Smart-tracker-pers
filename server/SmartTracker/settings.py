@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--gpx4@ylt%*%+p1=kuv11la&s+5ogdia47*51p07=thc^abo#*'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'PERs',
     'rest_framework',
     'corsheaders',
+    'import_export'
 ]
 
 MIDDLEWARE = [
@@ -81,11 +87,11 @@ WSGI_APPLICATION = 'SmartTracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'testdb',
-        'USER': 'postgres',
-        'PASSWORD':'postgres',
-        'HOST':'localhost',
-        'PORT':'5432'
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASS"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT")
     }
 }
 
@@ -108,6 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 # Rest framework conf and cors
 

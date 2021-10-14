@@ -1,22 +1,17 @@
 from django.contrib import admin
+from import_export.admin import ImportExportActionModelAdmin
 from .models import *
-from import_export import resources
-from import_export.admin import ImportExportModelAdmin
+from .resource import *
 
 
-
-class CaseResource(resources.ModelResource):
-
-    class Meta:
-        model = CaseView
-        widgets = {
-                'published': {'format': '%d.%m.%Y'},
-                }
+class PEAdmin(ImportExportActionModelAdmin):
+    resource_class = PEModelResource
 
 
-class CaseAdmin(ImportExportModelAdmin):
-    resource_class = CaseResource 
+class CaseViewAdmin(ImportExportActionModelAdmin):
+    resource_class = CaseViewModelResource
 
 
 admin.site.register(General)
-admin.site.register(CaseView,CaseAdmin)
+admin.site.register(CaseView, CaseViewAdmin)
+admin.site.register(PEModel, PEAdmin)

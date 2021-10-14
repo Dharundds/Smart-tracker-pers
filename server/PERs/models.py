@@ -1,23 +1,29 @@
 from django.db import models
+from datetime import datetime
 
 
 class CaseView(models.Model):
     case_number = models.CharField(max_length=255)
-    parent_case = models.CharField(max_length=255,blank=True)
-    sts_agent_name = models.CharField(max_length=255)
-    Type = models.CharField(max_length=255)
-    case_severity_level = models.CharField(max_length=255)
-    session_time = models.DecimalField(decimal_places=3,max_digits=4)
-    account_name_formula = models.CharField(max_length=255)
-    case_support_mission = models.CharField(max_length=255)
-    case_opened_date = models.DateTimeField()
-    status = models.CharField(max_length=100,blank=True)
-    product = models.CharField(max_length=255,blank=True)
-    case_status = models.CharField(max_length=255)
-    case_owner = models.CharField(max_length=255)
+    parent_case = models.CharField(max_length=255, blank=True, null=True)
+    sts_agent_name = models.CharField(max_length=255, blank=True, null=True)
+    Type = models.CharField(max_length=255, blank=True, null=True)
+    session_dt_created = models.CharField(
+        max_length=255, blank=True, null=True)
+    case_severity_level = models.CharField(
+        max_length=255, blank=True, null=True)
+    session_time = models.CharField(blank=True, max_length=40, null=True)
+    account_name_formula = models.CharField(
+        max_length=255, blank=True, null=True)
+    case_support_mission = models.CharField(
+        max_length=255, blank=True, null=True)
+    case_opened_date = models.CharField(max_length=255, blank=True, null=True)
+    status = models.CharField(max_length=100, blank=True, null=True)
+    product = models.CharField(max_length=255, blank=True, null=True)
+    case_status = models.CharField(max_length=254, blank=True, null=True)
+    case_owner = models.CharField(max_length=255, blank=True, null=True)
 
-    def __str__(self) :
-        return self.case_number+" | "+self.case_owner
+    def __str__(self):
+        return str(self.case_number)+" | "+str(self.case_owner)
 
 
 class PEModel(models.Model):
@@ -25,9 +31,7 @@ class PEModel(models.Model):
     cnickname = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
-
-
+        return self.PE_name
 
 
 class General(models.Model):
