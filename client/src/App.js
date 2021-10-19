@@ -4,6 +4,8 @@ import { Switch, Route, useHistory, useLocation , Redirect } from "react-router-
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import Navbar from "./Components/Navbar";
+import CaseView from "./Components/CaseView";
+import PEview from "./Components/PEview";
 
 function App() {
 
@@ -59,8 +61,8 @@ function App() {
     <>
       <Navbar />
       <Route exact path="/home" component={Home} />
-      
-      
+      <Route path="/caseview" component={CaseView} />
+      <Route path="/peview" component={PEview} />
     </>
   </Switch>
    

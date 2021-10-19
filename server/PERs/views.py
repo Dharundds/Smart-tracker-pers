@@ -23,29 +23,25 @@ class HomeView(APIView):
             return Response(serializer.data)
 
 
-class FeedExcelView(APIView):
-    serializer_class = CaseViewSerializer
+class PEView(APIView):
+    serializer_class = PEViewSerializer
 
     def get(self, request):
-        data = [{'case_number': value.case_number, 'parent_case': value.parent_case}
-                for value in CaseView.objects.all()]
-        return Response(data)
+        snippets = PEModel.objects.all()
+        serializer = PEViewSerializer(snippets, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
         pass
 
 
-class getdata(APIView):
-    serializer_class = PEViewSerializer
+class CaseViews(APIView):
+    serializer_class = CaseViewSerializer
 
     def get(self, request):
-        data = [{'PE_name': value.PE_name, 'Cnick': value.cnickname}
-                for value in PEModel.objects.all()]
-        return Response(data)
+        data = CaseView.objects.all()
+        serializer = CaseViewSerializer(data, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
-        # data = pd.read_excel(request.body)
-        # print(data)
-        data = request.body
-        print(data)
-        return Response({})
+        pass

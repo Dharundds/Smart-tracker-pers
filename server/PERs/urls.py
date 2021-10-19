@@ -4,6 +4,6 @@ from .views import *
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('getcaseview', FeedExcelView.as_view(), name='caseview'),
-    path('senddata',getdata.as_view(),name='excel')
+    path('PEview', PEView.as_view(), name='pe'),
+    path('caseview', CaseViews.as_view(), name='caseview'),
 ]
