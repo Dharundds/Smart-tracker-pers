@@ -1,3 +1,3 @@
-import PEview from './PEview'
+import PEview from "./PEview";
 
-export default PEview
+export default PEview;

@@ -15,3 +15,6 @@ class CaseViewAdmin(ImportExportActionModelAdmin):
 admin.site.register(General)
 admin.site.register(CaseView, CaseViewAdmin)
 admin.site.register(PEModel, PEAdmin)
+
+admin.site.site_title = "Smart Tracker"
+admin.site.site_header = "SmartTracker"

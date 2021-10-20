@@ -22,4 +22,4 @@ const CaseView = () => {
   return <div></div>;
 };
 
-export default CaseView;
+export default CaseViews;

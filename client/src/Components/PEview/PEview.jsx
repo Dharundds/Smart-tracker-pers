@@ -1,24 +1,11 @@
-import { useState, useEffect } from "react";
+import "./PEview.css";
 
-const PEview = () => {
-  const [pe, setPe] = useState("");
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/PEview", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        res.forEach((element) => {
-          console.log(element);
-        });
-      });
-  }, []);
-  return <div></div>;
+const PEview = ({ pename, nickname }) => {
+  return (
+    <div className="PE">
+      <h1 className="pename">PE name: {pename}</h1>
+      <h1 className="nickname">Nickname: {nickname} </h1>
+    </div>
+  );
 };
-
 export default PEview;

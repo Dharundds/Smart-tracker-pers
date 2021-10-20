@@ -1,11 +1,8 @@
-from django.db import reset_queries
-from django.shortcuts import render
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import *
 from .models import *
-import pandas as pd
 
 
 class HomeView(APIView):
