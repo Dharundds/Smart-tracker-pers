@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const CaseView = () => {
+const CaseViews = () => {
   const [caseView, setCaseView] = useState("");
   useEffect(() => {
     fetch("http://127.0.0.1:8000/caseview", {

@@ -61,8 +61,8 @@ function App() {
     <>
       <Navbar />
       <Route exact path="/home" component={Home} />
-      <Route path="/caseview" component={CaseViews} />
-      <Route path="/peview" component={PEviews} />
+      <Route path="/caseviews" component={CaseViews} />
+      <Route path="/peviews" component={PEviews} />
     </>
   </Switch>
    
