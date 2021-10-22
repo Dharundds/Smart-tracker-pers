@@ -28,7 +28,11 @@ const PEviews = () => {
         <h1>Hello</h1>
         {pe.length > 0 &&
           pe.map((val, key) => (
-            <PEview pename={val["PE_name"]} nickname={val["cnickname"]} />
+            <PEview
+              key={key}
+              pename={val["PE_name"]}
+              nickname={val["cnickname"]}
+            />
           ))}
       </div>
     </>

@@ -42,3 +42,12 @@ class CaseViews(APIView):
 
     def post(self, request):
         pass
+
+
+class Caseview(APIView):
+    serializer_class = CaseViewSerializer
+
+    def get(self, request, id):
+        data = CaseView.objects.filter(id=id)
+        serializer = CaseViewSerializer(data, many=True)
+        return Response(serializer.data)

@@ -6,6 +6,7 @@ import Home from "./Pages/Home";
 import Navbar from "./Components/Navbar";
 import CaseViews from "./Pages/CaseViews";
 import PEviews from "./Pages/PEviews";
+import Caseview from "./Components/Caseview";
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
       <Route exact path="/home" component={Home} />
       <Route path="/caseviews" component={CaseViews} />
       <Route path="/peviews" component={PEviews} />
+      <Route path='/caseview/:id' component={Caseview} />
     </>
   </Switch>
    

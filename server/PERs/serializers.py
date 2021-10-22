@@ -11,11 +11,11 @@ class GeneralSerializer(serializers.ModelSerializer):
 class CaseViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaseView
-        fields = ['case_number', 'parent_case', 'sts_agent_name', 'Type', 'session_dt_created', 'case_severity_level', 'session_time',
+        fields = ['id', 'case_number', 'parent_case', 'sts_agent_name', 'Type', 'session_dt_created', 'case_severity_level', 'session_time',
                   'account_name_formula', 'case_support_mission', 'case_opened_date', 'status', 'product', 'case_status', 'case_owner']
 
 
 class PEViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = PEModel
-        fields = ['PE_name', 'cnickname']
+        fields = ['id', 'PE_name', 'cnickname']
