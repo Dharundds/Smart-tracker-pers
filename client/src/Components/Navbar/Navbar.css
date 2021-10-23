@@ -1,8 +1,111 @@
-function Navbar(){
-    return (
-        <div>
-            Navbar
-        </div>
-    )
-}
-export default Navbar;
+
+.NavBar {
+    width: 100%;
+    height: 6vh;
+    user-select: none;
+    position: absolute;
+    z-index: 999;
+    
+  }
+  
+  .NavBar .navBarContainer {
+    width: 100%;
+    height: inherit;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position:fixed ;
+    background-color: white;border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width:1px ;
+    
+  }
+  
+  .NavBar .navBarContainer .logo {
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 4px;
+  }
+  
+  .NavBar .navBarContainer .logo:hover > h1 {
+    text-shadow: 1px 1px 5px var(--violet3);
+  }
+  .NavBar .navBarContainer .profileContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  
+  .NavBar .navBarContainer .profileContainer .profilePicContainer {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--lightgray);
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+  }
+  
+  .NavBar .navBarContainer .profileContainer .profilePicContainer:hover {
+    box-shadow: 0 0 0 3px var(--lightgray);
+  }
+  
+  .NavBar .profileName {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .NavBar .profileName:hover + .profilePicContainer {
+    box-shadow: 0 0 0 3px var(--lightgray);
+  }
+  
+  .NavBar .profileTabToggler:focus ~ .ProfileTab {
+    visibility: visible;
+  }
+  
+  .NavBar .Chat {
+    fill: white;
+  }
+  
+  .chatContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+  }
+  
+  .chatContainer p {
+    margin-right: 10px;
+  }
+  
+  .searchContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .chatNo {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    position: absolute;
+    top: -9px;
+    right: -10px;
+    box-shadow: 0 0 0 3px var(--violet);
+  }
+  
+  .chatNo p {
+    position: absolute;
+    top: 41%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+  }

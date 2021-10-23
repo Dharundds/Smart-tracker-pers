@@ -1,0 +1,7 @@
+.container{
+    color: black;
+    z-index: 2;
+    position: relative;
+    top:60px;
+    
+}

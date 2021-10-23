@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import PEview from "../../Components/PEview";
-
+import PEview from "../PEview";
+import "./PEviews.css"
 const PEviews = () => {
   const [pe, setPe] = useState([]);
   useEffect(() => {
@@ -22,18 +22,20 @@ const PEviews = () => {
   return (
     <>
       <div className="container">
+      
         {/* {pe.map((value, key) => (
           <h1 key={key}>{value}</h1>
         ))} */}
         <h1>Hello</h1>
-        {pe.length > 0 &&
+        
+        {/* {pe.length > 0 &&
           pe.map((val, key) => (
             <PEview
               key={key}
               pename={val["PE_name"]}
               nickname={val["cnickname"]}
             />
-          ))}
+          ))} */}
       </div>
     </>
   );

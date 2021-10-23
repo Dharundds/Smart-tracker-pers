@@ -1,0 +1,13 @@
+div h1{
+    color:var(--ibmblue);
+}
+.load{
+    z-index: 1;
+    
+}
+div .case{
+background-color: black;
+    z-index: 2;
+   position: relative;
+   top: -148px;
+}

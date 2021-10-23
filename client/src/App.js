@@ -4,8 +4,8 @@ import { Switch, Route, useHistory, useLocation , Redirect } from "react-router-
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
 import Navbar from "./Components/Navbar";
-import CaseViews from "./Pages/CaseViews";
-import PEviews from "./Pages/PEviews";
+import CaseViews from "./Components/CaseViews";
+import PEviews from "./Components/PEviews";
 import Caseview from "./Components/Caseview";
 
 function App() {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-
+import "./CaseViews.css"; 
+import Symbols from "../Symbols";
 const CaseViews = () => {
   const [caseView, setCaseView] = useState({});
   useEffect(() => {
@@ -22,16 +23,17 @@ const CaseViews = () => {
 
   return (
     <div>
+      <Symbols.load  className="load"/>
       {caseView.length > 0 &&
         caseView.map((val, key) => (
-          <>
+          <div className="case">
             <h1 key={key}>case_number:{val["case_number"]}</h1>
             <br />
             <p style={{ color: "red" }}> parent_case:{val["parent_case"]}</p>
             <button>
               <Link to={`/caseview/${val.id}`}> readmore </Link>
             </button>
-          </>
+          </div>
         ))}
     </div>
   );
