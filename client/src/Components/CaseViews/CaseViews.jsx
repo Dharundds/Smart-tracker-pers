@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import Loading from "../Loading";
 import "./CaseViews.css";
 import Symbols from "../Symbols";
 const CaseViews = () => {
@@ -25,7 +26,7 @@ const CaseViews = () => {
 
   return (
     <div>
-      {isLoading ? <Symbols.load className="load" /> : null}
+      {isLoading ? <Loading /> : null}
       {caseView.length > 0 &&
         caseView.map((val, key) => (
           <div className="case">

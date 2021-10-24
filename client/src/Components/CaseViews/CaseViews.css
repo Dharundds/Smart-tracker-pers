@@ -1,16 +1,12 @@
-div h1{
-    color:var(--ibmblue);
+div h1 {
+  color: var(--ibmblue);
 }
-.load{
-    z-index: -999;
-    position: relative;
-margin-top:50%;
-margin-left: 50%;
-    
-}
-div .case{
-background-color: black;
-    z-index: 2;
-   position: relative;
-   top: -148px;
+
+div .case {
+  background-color: black;
+  z-index: 2;
+  position: relative;
+  top: -148px;
+  width: 200%;
+  float: left;
 }
