@@ -5,7 +5,7 @@ import Symbols from "../Symbols";
 
 function Navbar(){
   const history=useHistory();
-  const[view,setView]=useState("account view");
+  
     return (
         <div className="NavBar">
           <div className="navBarContainer">
@@ -30,20 +30,7 @@ function Navbar(){
                 //   history.push("/profile");
                 //}}
               >
-              <button className="togle"
-            onClick={()=>{
-                if (view==="caseview"){
-                    history.push("/caseviews");
-                    setView("accview");
-                    
-                }
-                else{
-                  setView("caseview");
-                    history.push("/peviews")
-                }
-            }}>
-                {view}
-            </button>
+              
                
               </p>
               <div
@@ -52,7 +39,7 @@ function Navbar(){
                 //   history.push("/profile");
                 //}}
               >
-                  <Symbols.profile/> 
+                  <Symbols.profile size="50px" id="profile"/> 
                 {/* <img
                   src={profilePic}
                   alt=""
