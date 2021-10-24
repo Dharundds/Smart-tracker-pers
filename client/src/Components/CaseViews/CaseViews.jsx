@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import "./CaseViews.css"; 
+import "./CaseViews.css";
 import Symbols from "../Symbols";
 const CaseViews = () => {
+  const [isLoading, setisLoading] = useState(true);
   const [caseView, setCaseView] = useState({});
   useEffect(() => {
     fetch("http://127.0.0.1:8000/caseviews", {
@@ -16,6 +17,7 @@ const CaseViews = () => {
       })
       .then((res) => {
         setCaseView(res);
+        setisLoading(false);
         console.log(res);
         console.log(caseView);
       });
@@ -23,7 +25,7 @@ const CaseViews = () => {
 
   return (
     <div>
-      <Symbols.load  className="load"/>
+      {isLoading ? <Symbols.load className="load" /> : null}
       {caseView.length > 0 &&
         caseView.map((val, key) => (
           <div className="case">
