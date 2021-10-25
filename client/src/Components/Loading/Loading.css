@@ -496,19 +496,14 @@ html {
 *:after {
   box-sizing: inherit;
 }
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-body .dribbble {
+
+.dribbble {
   position: fixed;
   display: block;
   right: 24px;
   bottom: 24px;
 }
-body .dribbble img {
+.dribbble img {
   display: block;
   width: 76px;
 }
