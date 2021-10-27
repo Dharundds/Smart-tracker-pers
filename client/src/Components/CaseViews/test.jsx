@@ -1,11 +1,37 @@
-import { useState, useEffect, useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
-import Loading from "../Loading";
-import "./CaseViews.css";
-import Symbols from "../Symbols";
+import React from 'react'
+import styled from 'styled-components'
 import { useTable, useExpanded } from 'react-table'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt } from "@fortawesome/free-solid-svg-icons";
+
+
+const Styles = styled.div`
+  padding: 1rem;
+
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
+
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
+`
+
 function Table({ columns: userColumns, data }) {
   const {
     getTableProps,
@@ -55,30 +81,12 @@ function Table({ columns: userColumns, data }) {
     </>
   )
 }
-const CaseViews = () => {
-  const [isLoading, setisLoading] = useState(true);
-  const [caseView, setCaseView] =useState({});
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/caseviews", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setCaseView(res);
-        setisLoading(false);
-      });
-  }, []);
 
-  const cases=useMemo(() =>caseView);
-  const columns =useMemo(
+function App() {
+  const columns = React.useMemo(
     () => [
       {
-        // Build our expander columne
+        // Build our expander column
         id: 'expander', // Make sure it has an ID
         Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
           <span {...getToggleAllRowsExpandedProps()}>
@@ -107,12 +115,12 @@ const CaseViews = () => {
         Header: 'Name',
         columns: [
           {
-            Header: 'Case Number',
-            accessor: 'case_number',
+            Header: 'First Name',
+            accessor: 'firstName',
           },
           {
-            Header: 'Parent Case',
-            accessor: 'parent_case',
+            Header: 'Last Name',
+            accessor: 'lastName',
           },
         ],
       },
@@ -120,40 +128,48 @@ const CaseViews = () => {
         Header: 'Info',
         columns: [
           {
-            Header: 'Agent name',
-            accessor: 'sts_agent_name',
+            Header: 'Age',
+            accessor: 'age',
           },
           {
-            Header: 'severity',
-            accessor: 'case_severity_level',
+            Header: 'Visits',
+            accessor: 'visits',
           },
           {
             Header: 'Status',
             accessor: 'status',
           },
           {
-            Header: 'case_owner',
-            accessor: 'case_owner',
+            Header: 'Profile Progress',
+            accessor: 'progress',
           },
         ],
       },
     ],
     []
   )
-  return (
-    <div>
-      {/* <div class="cards">
-    <div class="card card-1">
-      <h2 class="card__title" key={key}>case_number:{val["case_number"]}</h2>
-      <p class="card__apply">
-        parent_case:{val["parent_case"]} <i class="fas fa-arrow-right"></i></a>
-      </p>
-    </div>
-    </div> */}
-      {isLoading ?      <Symbols.load/>  : <Table columns={columns} data={cases} />
-      }
-    </div>
-  );
-};
+ useEffect(() => {
+    fetch("http://127.0.0.1:8000/caseviews", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        
 
-export default CaseViews;
+  const data = res
+        
+      });
+  }, []);
+  return (
+    <Styles>
+      <Table columns={columns} data={data} />
+    </Styles>
+  )
+}
+
+export default App

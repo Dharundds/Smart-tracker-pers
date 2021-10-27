@@ -5,7 +5,7 @@
   /* position: absolute; */
   z-index: 999;
 
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
 }
@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  background-color: black;
+  background-color: blue;
   border-bottom-color: black;
   border-bottom-style: solid;
   border-bottom-width: 1px;
@@ -54,23 +54,6 @@
   transition: all 200ms ease-in-out;
 }
 
-.NavBar .navBarContainer .profileContainer .profilePicContainer:hover {
-  box-shadow: 0 0 0 3px var(--lightgray);
-}
 
-.NavBar .profileName {
-  margin-right: 10px;
-  cursor: pointer;
-}
 
-.NavBar .profileName:hover + .profilePicContainer {
-  box-shadow: 0 0 0 3px var(--lightgray);
-}
 
-.NavBar .profileTabToggler:focus ~ .ProfileTab {
-  visibility: visible;
-}
-
-.NavBar .Chat {
-  fill: white;
-}
