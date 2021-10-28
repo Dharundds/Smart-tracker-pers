@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import CaseViews from "./Components/CaseViews";
 import PEviews from "./Components/PEviews";
 import Caseview from "./Components/Caseview";
+import Price from "./Components/Price";
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
       <Route path="/caseviews" component={CaseViews} />
       <Route path="/peviews" component={PEviews} />
       <Route path='/caseview/:id' component={Caseview} />
+      <Route path='/quote' component={Price} />
     </>
   </Switch>
    

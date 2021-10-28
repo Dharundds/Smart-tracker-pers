@@ -1,5 +1,6 @@
 from import_export import resources, fields
 from .models import *
+from tablib import Databook
 
 
 class PEModelResource(resources.ModelResource):
@@ -26,7 +27,7 @@ class CaseViewModelResource(resources.ModelResource):
     case_severity_level = fields.Field(
         attribute="case_severity_level", column_name='Case Severity Level')
     session_time = fields.Field(
-        attribute='session_time', column_name='Session Time Date Created')
+        attribute='session_time', column_name='Session Time: Total Duration')
     account_name_formula = fields.Field(
         attribute='account_name_formula', column_name='Account Name Formula')
     case_support_mission = fields.Field(
@@ -46,3 +47,17 @@ class CaseViewModelResource(resources.ModelResource):
         exclude = ('id',)
         import_id_fields = ('case_number', 'parent_case', 'sts_agent_name', 'Type', 'session_dt_created', 'case_severity_level', 'session_time',
                             'account_name_formula', 'case_support_mission', 'case_opened_date', 'status', 'product', 'case_status', 'case_owner',)
+
+
+class RSCModelResource(resources.ModelResource):
+    resource_name = fields.Field(
+        attribute='resource_name', column_name='Resource Name')
+    name_per_ilc = fields.Field(
+        attribute='name_per_ilc', column_name='Name as per ILC')
+    cost = fields.Field(
+        attribute='cost', column_name='Cost (USD @45 INR)')
+
+    class Meta:
+        model = ResourceNameModel
+        exclude = ('id',)
+        import_id_fields = ('resource_name', 'name_per_ilc', 'cost',)

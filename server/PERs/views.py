@@ -51,3 +51,18 @@ class Caseview(APIView):
         data = CaseView.objects.filter(id=id)
         serializer = CaseViewSerializer(data, many=True)
         return Response(serializer.data)
+
+
+class QuotedPriceView(APIView):
+    serializers_class = RSCSerializer
+
+    def get(self, request, name):
+        time_spt = CaseView.objects.filter(sts_agent_name=name)
+        serializer = CaseViewSerializer(time_spt, many=True)
+        return Response(serializer.data)
+
+
+# class DeleteAll(APIView):
+#     def get(self, request):
+#         delt = CaseView.objects.all().delete()
+#         return Response({})

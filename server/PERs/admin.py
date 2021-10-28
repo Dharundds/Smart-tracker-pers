@@ -12,8 +12,13 @@ class CaseViewAdmin(ImportExportActionModelAdmin):
     resource_class = CaseViewModelResource
 
 
+class ResourceModelAdmin(ImportExportActionModelAdmin):
+    resource_class = RSCModelResource
+
+
 admin.site.register(General)
 admin.site.register(CaseView, CaseViewAdmin)
+admin.site.register(ResourceNameModel, ResourceModelAdmin)
 admin.site.register(PEModel, PEAdmin)
 
 admin.site.site_title = "Smart Tracker"

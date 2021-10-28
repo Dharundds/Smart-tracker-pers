@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading";
 import "./CaseViews.css";
 import Symbols from "../Symbols";
-import { useTable, useExpanded } from 'react-table'
+import { useTable, useExpanded } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 function Table({ columns: userColumns, data }) {
@@ -20,30 +20,32 @@ function Table({ columns: userColumns, data }) {
       data,
     },
     useExpanded // Use the useExpanded plugin hook
-  )
+  );
 
   return (
     <>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map(headerGroup => (
+          {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
               ))}
             </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {
-            prepareRow(row)
+            prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
                 })}
               </tr>
-            )
+            );
           })}
         </tbody>
       </table>
@@ -53,11 +55,11 @@ function Table({ columns: userColumns, data }) {
         <code>{JSON.stringify({ expanded: expanded }, null, 2)}</code>
       </pre>
     </>
-  )
+  );
 }
 const CaseViews = () => {
   const [isLoading, setisLoading] = useState(true);
-  const [caseView, setCaseView] =useState({});
+  const [caseView, setCaseView] = useState({});
   useEffect(() => {
     fetch("http://127.0.0.1:8000/caseviews", {
       method: "GET",
@@ -74,15 +76,15 @@ const CaseViews = () => {
       });
   }, []);
 
-  const cases=useMemo(() =>caseView);
-  const columns =useMemo(
+  const cases = useMemo(() => caseView);
+  const columns = useMemo(
     () => [
       {
         // Build our expander columne
-        id: 'expander', // Make sure it has an ID
+        id: "expander", // Make sure it has an ID
         Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
           <span {...getToggleAllRowsExpandedProps()}>
-            {isAllRowsExpanded ? '👇' : '👉'}
+            {isAllRowsExpanded ? "👇" : "👉"}
           </span>
         ),
         Cell: ({ row }) =>
@@ -99,47 +101,47 @@ const CaseViews = () => {
                 },
               })}
             >
-              {row.isExpanded ? '👇' : '👉'}
+              {row.isExpanded ? "👇" : "👉"}
             </span>
           ) : null,
       },
       {
-        Header: 'Name',
+        Header: "Name",
         columns: [
           {
-            Header: 'Case Number',
-            accessor: 'case_number',
+            Header: "Case Number",
+            accessor: "case_number",
           },
           {
-            Header: 'Parent Case',
-            accessor: 'parent_case',
+            Header: "Parent Case",
+            accessor: "parent_case",
           },
         ],
       },
       {
-        Header: 'Info',
+        Header: "Info",
         columns: [
           {
-            Header: 'Agent name',
-            accessor: 'sts_agent_name',
+            Header: "Agent name",
+            accessor: "sts_agent_name",
           },
           {
-            Header: 'severity',
-            accessor: 'case_severity_level',
+            Header: "severity",
+            accessor: "case_severity_level",
           },
           {
-            Header: 'Status',
-            accessor: 'status',
+            Header: "Status",
+            accessor: "status",
           },
           {
-            Header: 'case_owner',
-            accessor: 'case_owner',
+            Header: "case_owner",
+            accessor: "case_owner",
           },
         ],
       },
     ],
     []
-  )
+  );
   return (
     <div>
       {/* <div class="cards">
@@ -150,8 +152,7 @@ const CaseViews = () => {
       </p>
     </div>
     </div> */}
-      {isLoading ?      <Symbols.load/>  : <Table columns={columns} data={cases} />
-      }
+      {isLoading ? <Symbols.load /> : <Table columns={columns} data={cases} />}
     </div>
   );
 };

@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.fields import CharField
+from import_export import resources
 
 
 class CaseView(models.Model):
@@ -31,6 +33,16 @@ class PEModel(models.Model):
 
     def __str__(self):
         return self.PE_name
+
+
+class ResourceNameModel(models.Model):
+    # role = models.CharField(max_length=100)
+    resource_name = models.CharField(max_length=255)
+    name_per_ilc = models.CharField(max_length=255)
+    cost = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.resource_name
 
 
 class General(models.Model):
