@@ -58,8 +58,14 @@ class QuotedPriceView(APIView):
 
     def get(self, request, name):
         time_spt = CaseView.objects.filter(sts_agent_name=name)
+        price = ResourceNameModel.objects.filter(resource_name=name)
         serializer = CaseViewSerializer(time_spt, many=True)
-        return Response(serializer.data)
+        s = RSCSerializer(price, many=True)
+        content = {
+            'timespt': serializer.data,
+            'price': s.data
+        }
+        return Response(content)
 
 
 # class DeleteAll(APIView):
