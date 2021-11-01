@@ -55,15 +55,32 @@ class Caseview(APIView):
 
 class QuotedPriceView(APIView):
     serializers_class = RSCSerializer
+    count = 0
+    cost = 0.00
+    full = 700.00
+    is_70 = False
+    is_100 = False
 
     def get(self, request, name):
         time_spt = CaseView.objects.filter(sts_agent_name=name)
         price = ResourceNameModel.objects.filter(resource_name=name)
         serializer = CaseViewSerializer(time_spt, many=True)
         s = RSCSerializer(price, many=True)
+        for data in serializer.data:
+            self.count += float(data['session_time'])
+        for i in s.data:
+            self.cost = i['cost']
+        tot = float(self.count) * float(self.cost.split('$')[1])
+        if tot >= 0.70*tot:
+            self.is_70 = True
+        elif tot >= tot:
+            self.is_70 = False
+            self.is_100 = True
         content = {
             'timespt': serializer.data,
-            'price': s.data
+            'price': s.data,
+            "is_70": self.is_70,
+            "full": self.is_100
         }
         return Response(content)
 
