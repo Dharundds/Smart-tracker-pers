@@ -1,158 +1,99 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import Loading from "../Loading";
 import "./CaseViews.css";
 import Symbols from "../Symbols";
-import { useTable, useExpanded } from "react-table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt } from "@fortawesome/free-solid-svg-icons";
-function Table({ columns: userColumns, data }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state: { expanded },
-  } = useTable(
-    {
-      columns: userColumns,
-      data,
-    },
-    useExpanded // Use the useExpanded plugin hook
-  );
-
-  return (
-    <>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <br />
-      <div>Showing the first 20 results of {rows.length} rows</div>
-      <pre>
-        <code>{JSON.stringify({ expanded: expanded }, null, 2)}</code>
-      </pre>
-    </>
-  );
-}
+import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 const CaseViews = () => {
   const [isLoading, setisLoading] = useState(true);
   const [caseView, setCaseView] = useState({});
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/caseviews", {
+  const [gridApi, setGridApi] = useState(null);
+  const [gridColumnApi, setGridColumnApi] = useState(null);
+  const [rowData, setRowData] = useState(null);
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+    setGridColumnApi(params.columnApi);
+
+    const updateData = (data) => {
+      setRowData(data);
+    };
+
+   
+      
+      fetch("http://127.0.0.1:8000/caseviews", {
       method: "GET",
       headers: {
         "Content-type": "application/json",
       },
     })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setCaseView(res);
-        setisLoading(false);
-      });
-  }, []);
+    .then((resp) => resp.json())
+    .then((data) => updateData(data));
+      
+  };
 
-  const cases = useMemo(() => caseView);
-  const columns = useMemo(
-    () => [
-      {
-        // Build our expander columne
-        id: "expander", // Make sure it has an ID
-        Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
-          <span {...getToggleAllRowsExpandedProps()}>
-            {isAllRowsExpanded ? "👇" : "👉"}
-          </span>
-        ),
-        Cell: ({ row }) =>
-          // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-          // to build the toggle for expanding a row
-          row.canExpand ? (
-            <span
-              {...row.getToggleRowExpandedProps({
-                style: {
-                  // We can even use the row.depth property
-                  // and paddingLeft to indicate the depth
-                  // of the row
-                  paddingLeft: `${row.depth * 2}rem`,
-                },
-              })}
-            >
-              {row.isExpanded ? "👇" : "👉"}
-            </span>
-          ) : null,
-      },
-      {
-        Header: "Name",
-        columns: [
-          {
-            Header: "Case Number",
-            accessor: "case_number",
-          },
-          {
-            Header: "Parent Case",
-            accessor: "parent_case",
-          },
-        ],
-      },
-      {
-        Header: "Info",
-        columns: [
-          {
-            Header: "Agent name",
-            accessor: "sts_agent_name",
-          },
-          {
-            Header: "severity",
-            accessor: "case_severity_level",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-          {
-            Header: "case_owner",
-            accessor: "case_owner",
-          },
-        ],
-      },
-    ],
-    []
-  );
   return (
     <div>
-      {/* <div class="cards">
-    <div class="card card-1">
-      <h2 class="card__title" key={key}>case_number:{val["case_number"]}</h2>
-      <p class="card__apply">
-        parent_case:{val["parent_case"]} <i class="fas fa-arrow-right"></i></a>
-      </p>
-    </div>
-    </div> */}
-      {isLoading ? <Symbols.load /> : <Table columns={columns} data={cases} />}
+      <AgGridReact
+            defaultColDef={{
+              width: 150,
+              editable: true,
+              filter: 'agTextColumnFilter',
+              floatingFilter: true,
+              resizable: true,
+            }}
+            defaultColGroupDef={{ marryChildren: true }}
+            columnTypes={{
+              numberColumn: {
+                width: 130,
+                filter: 'agNumberColumnFilter',
+              },
+              medalColumn: {
+                width: 100,
+                columnGroupShow: 'open',
+                filter: false,
+              },
+              nonEditableColumn: { editable: false },
+              dateColumn: {
+                filter: 'agDateColumnFilter',
+                filterParams: {
+                  comparator: function (filterLocalDateAtMidnight, cellValue) {
+                    var dateParts = cellValue.split('/');
+                    var day = Number(dateParts[0]);
+                    var month = Number(dateParts[1]) - 1;
+                    var year = Number(dateParts[2]);
+                    var cellDate = new Date(year, month, day);
+                    if (cellDate < filterLocalDateAtMidnight) {
+                      return -1;
+                    } else if (cellDate > filterLocalDateAtMidnight) {
+                      return 1;
+                    } else {
+                      return 0;
+                    }
+                  },
+                },
+              },
+            }}
+            rowData={rowData}
+            onGridReady={onGridReady}
+          >
+            <AgGridColumn sortable="true" headerName="Case Number" field="case_number" />
+            <AgGridColumn sortable="true" headerName="Parent Case" field="parent_case" />
+            <AgGridColumn sortable="true" headerName="Agent Name" field="sts_agent_name" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Type" field="Type" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Session Created" field="session_dt_created" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Case Severity" field="case_severity_level" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Session Time" field="session_time" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Account Name" field="account_name_formula" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Case support" field="case_support_mission" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Case Open Date" field="case_opened_date" type="date" />
+            <AgGridColumn sortable="true" headerName="Status" field="status" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Product" field="product" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Case Status" field="case_status" type="numberColumn" />
+            <AgGridColumn sortable="true" headerName="Case Owner" field="case_owner" type="numberColumn" />
+
+
+                      </AgGridReact>
     </div>
   );
 };
