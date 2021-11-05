@@ -21,6 +21,7 @@ function Login() {
               />
               <button
                 type="submit"
+                disabled={!name}
                 onClick={() => {
                   history.push({
                     pathname: "/home",
