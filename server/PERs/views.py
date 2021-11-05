@@ -20,13 +20,19 @@ class HomeView(APIView):
             return Response(serializer.data)
 
 
-class PEView(APIView):
+class AccountView(APIView):
     serializer_class = PEViewSerializer
 
-    def get(self, request):
-        snippets = PEModel.objects.all()
+    def get(self, request, uname):
+        snippets = PEModel.objects.filter(PE_name=uname)
+        rsc = ResourceNameModel.objects.all()
         serializer = PEViewSerializer(snippets, many=True)
-        return Response(serializer.data)
+        rsc_serializer = RSCSerializer(rsc, many=True)
+        content = {
+            "PE": serializer.data,
+            "PER": rsc_serializer.data,
+        }
+        return Response(content)
 
     def post(self, request):
         pass
@@ -49,7 +55,9 @@ class Caseview(APIView):
 
     def get(self, request, id):
         data = CaseView.objects.filter(id=id)
+
         serializer = CaseViewSerializer(data, many=True)
+
         return Response(serializer.data)
 
 
