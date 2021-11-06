@@ -20,6 +20,7 @@ admin.site.register(General)
 admin.site.register(CaseView, CaseViewAdmin)
 admin.site.register(ResourceNameModel, ResourceModelAdmin)
 admin.site.register(PEModel, PEAdmin)
+admin.site.register(UploadResourceModel)
 
 admin.site.site_title = "Smart Tracker"
 admin.site.site_header = "SmartTracker"
