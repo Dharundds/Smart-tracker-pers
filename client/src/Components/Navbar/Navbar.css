@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  background-color: blue;
+  background-color: #ffffff;
   border-bottom-color: black;
   border-bottom-style: solid;
   border-bottom-width: 1px;
@@ -28,10 +28,13 @@
 
 .NavBar .navBarContainer .logo {
   cursor: pointer;
-  margin-left: 10px;
-  margin-top: 4px;
+  margin-left: -20px;
+  margin-top: 10px;
 }
-
+.NavBar .navBarContainer .logo img {
+  height: 150px;
+  width: 195px;
+}
 .NavBar .navBarContainer .logo:hover > h1 {
   text-shadow: 1px 1px 5px var(--violet3);
 }
@@ -51,9 +54,11 @@
   position: relative;
   background-color: var(--lightgray);
   cursor: pointer;
+
   transition: all 200ms ease-in-out;
 }
 
-
-
-
+.NavBar .navBarContainer .profileName {
+  position: absolute;
+  right:80px;
+}

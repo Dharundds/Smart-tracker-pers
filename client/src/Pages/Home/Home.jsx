@@ -8,7 +8,7 @@ function Home() {
   const history = useHistory();
   const location = useLocation();
   let username = location.state.name;
-  //   console.log(location.state.name);
+  // console.log(location.state.name);
   const [view, setView] = useState("account view");
   return (
     <div class="home">

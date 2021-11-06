@@ -48,7 +48,7 @@ const CaseViews = () => {
   }, []);
 
   return (
-    <div className="ag-material" style={{ height: "500px" }}>
+    <div className="ag-theme-alpine" style={{ height: "750px" }}>
       <AgGridReact
         defaultColDef={{
           width: 150,
@@ -107,25 +107,26 @@ const CaseViews = () => {
           sortable="true"
           headerName="Agent Name"
           field="sts_agent_name"
-          type="numberColumn"
+          
         />
         <AgGridColumn
           sortable="true"
           headerName="Type"
           field="Type"
-          type="numberColumn"
+          
         />
         <AgGridColumn
           sortable="true"
           headerName="Session Created"
           field="session_dt_created"
-          type="numberColumn"
+          type="dateColumn"
         />
         <AgGridColumn
           sortable="true"
           headerName="Case Severity"
           field="case_severity_level"
           type="numberColumn"
+          width="300"
         />
         <AgGridColumn
           sortable="true"
@@ -137,19 +138,22 @@ const CaseViews = () => {
           sortable="true"
           headerName="Account Name"
           field="account_name_formula"
-          type="numberColumn"
+          
         />
         <AgGridColumn
           sortable="true"
           headerName="Case support"
           field="case_support_mission"
-          type="numberColumn"
+          width="300"
+        
         />
         <AgGridColumn
           sortable="true"
           headerName="Case Open Date"
           field="case_opened_date"
-          type="date"
+          type="dateColumn"
+          width="300"
+
         />
         <AgGridColumn
           sortable="true"
@@ -161,19 +165,19 @@ const CaseViews = () => {
           sortable="true"
           headerName="Product"
           field="product"
-          type="numberColumn"
+          
         />
         <AgGridColumn
           sortable="true"
           headerName="Case Status"
           field="case_status"
-          type="numberColumn"
+          
         />
         <AgGridColumn
           sortable="true"
           headerName="Case Owner"
           field="case_owner"
-          type="numberColumn"
+         
         />
       </AgGridReact>
     </div>

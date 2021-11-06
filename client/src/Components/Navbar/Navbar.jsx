@@ -1,10 +1,13 @@
 import "./Navbar.css"
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import Symbols from "../Symbols";
+import logo from "../../Assets/logo.png"
 
 function Navbar(){
+  const location = useLocation();
   const history=useHistory();
+  let username = location.state.name;
   
     return (
         <div className="NavBar">
@@ -15,7 +18,7 @@ function Navbar(){
                   history.push("/home");
                 }}
               >
-               <Symbols.logo />
+               <img src={logo} alt="logo"/>
               </h1>
               
             </div>
@@ -31,15 +34,16 @@ function Navbar(){
                 //}}
               >
               
-               
+               {username}
               </p>
               <div
                 className="profilePicContainer"
                 // onClick={() => {
                 //   history.push("/profile");
                 //}}
+                title={username}
               >
-                  <Symbols.profile size="50px" id="profile"/> 
+                  <Symbols.profile size="40px" id="profile" /> 
                 {/* <img
                   src={profilePic}
                   alt=""

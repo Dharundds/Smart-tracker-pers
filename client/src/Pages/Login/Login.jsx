@@ -5,13 +5,14 @@ function Login() {
   const history = useHistory();
   const [name, setName] = useState("");
   return (
-    <div>
+   
       <div className="loginMC">
         {" "}
         {/*main container*/}
         <div className="loginSC">
           {/*sub container*/}
           <div className="login">
+          <h1> Log in to IBM </h1>
             <form>
               <input
                 type="text"
@@ -19,6 +20,7 @@ function Login() {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+              <br/>
               <button
                 type="submit"
                 disabled={!name}
@@ -30,13 +32,13 @@ function Login() {
                 }}
               >
                 {" "}
-                click
+                Login
               </button>
             </form>
           </div>
         </div>
       </div>
-    </div>
+  
   );
 }
 export default Login;
