@@ -9,23 +9,23 @@ function Home() {
   const location = useLocation();
   let username = location.state.name;
   // console.log(location.state.name);
-  const [view, setView] = useState("account view");
+  const [view, setView] = useState("Accounts View");
   return (
     <div class="home">
       <button
         className="togle"
         onClick={() => {
-          if (view === "caseview") {
-            setView("accview");
+          if (view === "Case View") {
+            setView("Accounts View");
           } else {
-            setView("caseview");
+            setView("Case View");
           }
         }}
       >
         {view}
       </button>
       <div className="homeMC">
-        {view === "caseview" ? <PEviews name={username} /> : <CaseViews />}
+        {view === "Case View" ? <PEviews name={username} /> : <CaseViews />}
       </div>
     </div>
   );
