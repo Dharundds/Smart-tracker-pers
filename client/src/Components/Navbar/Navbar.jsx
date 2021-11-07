@@ -7,7 +7,7 @@ import logo from "../../Assets/logo.png"
 function Navbar(){
   const location = useLocation();
   const history=useHistory();
-  let username = location.state.name;
+  let username=localStorage.getItem('myData');
   
     return (
         <div className="NavBar">
