@@ -1,7 +1,6 @@
 from django.db import models
-from django.db.models.fields import CharField
-from datetime import datetime
 import pandas as pd
+import os
 
 
 class CaseView(models.Model):
@@ -51,7 +50,7 @@ class ResourceNameModel(models.Model):
     cost = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.resource_name
+        return str(self.role) + " | " + str(self.resource_name)
 
 
 class General(models.Model):
@@ -64,28 +63,38 @@ class General(models.Model):
 
 def uploadfile():
     exl = pd.ExcelFile('resource/RSC_Resource_Name_List_V3_Masked_1.xlsx')
+    # ----------------------------MCR--------------------------------------
     mcr = pd.read_excel(exl, 'MCR')
-    dic = {}
-    dic["rsc_name"] = list(mcr["Resource Name"].dropna())
-    dic["npi"] = list(mcr["Name as per ILC"].dropna())
-    dic["cost"] = list(mcr["Cost (USD @45 INR)"].dropna())
-    for val in dic:
-        print(dic[val])
+    rsc_names = list(mcr["Resource Name"].dropna())
+    npis = list(mcr["Name as per ILC"].dropna())
+    costs = list(mcr["Cost (USD @45 INR)"].dropna())
 
-    # rsc = ResourceNameModel.objects.create(
-    #     role="MCR",
-    #     resource_name=mcr["Resource Name"],
-    #     name_per_ilc=mcr["Name as per ILC"],
-    #     cost=mcr["Cost (USD @45 INR)"],
-    # )
-    # rsc.save()
+    for val in rsc_names:
+        i = rsc_names.index(val)
+        npi = npis[i]
+        cost = costs[i]
+        rsc = ResourceNameModel.objects.create(
+            role="MCR",
+            resource_name=val,
+            name_per_ilc=npi,
+            cost=cost,
+        )
+        rsc.save()
+     # ----------------------------PER--------------------------------------
+    per = pd.read_excel(exl, 'PER')
+    rsc_names1 = list(per["Resource Name"].dropna())
+    npis1 = list(per["Name as per ILC"].dropna())
+    costs1 = list(per["Cost (USD @45 INR)"].dropna())
 
-
-# per = pd.read_excel(exl, 'PER')
-#     rsc_1 = ResourceNameModel.objects.create(
-#         role="PER",
-#         resource_name=per["Resource Name"],
-#         name_per_ilc=per["Name as per ILC"],
-#         cost=per["Cost (USD @45 INR)"],
-#     )
-#     rsc_1.save()
+    for val1 in rsc_names1:
+        i = rsc_names1.index(val1)
+        npi1 = npis1[i]
+        cost1 = costs1[i]
+        rsc1 = ResourceNameModel.objects.create(
+            role="PER",
+            resource_name=val1,
+            name_per_ilc=npi1,
+            cost=cost1,
+        )
+        rsc1.save()
+    os.remove("resource/RSC_Resource_Name_List_V3_Masked_1.xlsx")
