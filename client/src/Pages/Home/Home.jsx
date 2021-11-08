@@ -7,9 +7,10 @@ import "./Home.css";
 function Home() {
   const history = useHistory();
   const location = useLocation();
-  let username = location.state.name;
-  // console.log(location.state.name);
   const [view, setView] = useState("Accounts View");
+  const [username, setUsername] = useState(location.state.name);
+
+  // console.log(location.state.name);
   return (
     <div class="home">
       <button

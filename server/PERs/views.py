@@ -25,12 +25,19 @@ class AccountView(APIView):
 
     def get(self, request, uname):
         snippets = PEModel.objects.filter(PE_name=uname)
-        rsc = ResourceNameModel.objects.all()
         serializer = PEViewSerializer(snippets, many=True)
+        # -------------------------------------------------------
+        cus_nick = [val['cnickname'] for val in serializer.data]
+        acc = CaseView.objects.filter(account_name_formula__in=cus_nick)
+        acc_serializer = CaseViewSerializer(acc, many=True)
+        # --------------------------------------------------------------
+        # print(acc_serializer.data)
+        rscs = [dt['sts_agent_name'] for dt in acc_serializer.data]
+        rsc = ResourceNameModel.objects.filter(resource_name__in=rscs)
         rsc_serializer = RSCSerializer(rsc, many=True)
         content = {
             "PE": serializer.data,
-            "PER": rsc_serializer.data,
+            "RSC": rsc_serializer.data,
         }
         return Response(content)
 
@@ -78,7 +85,7 @@ class QuotedPriceView(APIView):
             self.count += float(data['session_time'])
         for i in s.data:
             self.cost = i['cost']
-        tot = float(self.count) * float(self.cost.split('$')[1])
+        tot = float(self.count) * float(self.cost)
         if tot >= 0.70*tot:
             self.is_70 = True
         elif tot >= tot:
