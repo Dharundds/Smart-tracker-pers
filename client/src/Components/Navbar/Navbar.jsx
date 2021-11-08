@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Symbols from "../Symbols";
 import logo from "../../Assets/logo.png";
@@ -9,8 +9,10 @@ function Navbar() {
   const location = useLocation();
   const history = useHistory();
   const [toggle, setToggle] = useState(false);
-  let username = localStorage.getItem("myData");
-
+  const username = localStorage.getItem("myData");
+  if (localStorage.getItem("myData") === null) {
+    localStorage.setItem("myData", location.state.name);
+  }
   return (
     <div className="NavBar">
       <div className="navBarContainer">
@@ -23,37 +25,16 @@ function Navbar() {
             <img src={logo} alt="logo" />
           </h1>
         </div>
-
+        <p className="profileName">{username}</p>
         <div className="profileContainer">
-          <p
-            className="profileName"
-            // onClick={() => {
-            //   history.push("/profile");
-            //}}
-          >
-            {username}
-          </p>
           <div
             className="profilePicContainer"
+            title={username}
             onClick={() => {
               setToggle(!toggle);
             }}
-            title={username}
           >
             <Symbols.profile size="50px" id="profile" />
-            {/* <img
-                  src={profilePic}
-                  alt=""
-                  onDragStart={(e) => {
-                    e.preventDefault();
-                  }}
-                  onContextMenu={(e) => {
-                    e.preventDefault();
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }}
-                /> */}
           </div>
         </div>
       </div>
