@@ -24,4 +24,4 @@ class PEViewSerializer(serializers.ModelSerializer):
 class RSCSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceNameModel
-        fields = ['id', 'resource_name', 'name_per_ilc', 'cost']
+        fields = ['id', 'role', 'resource_name', 'name_per_ilc', 'cost']

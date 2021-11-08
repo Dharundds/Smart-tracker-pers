@@ -1,17 +1,15 @@
-
-
 * img {
   user-select: none;
 }
 
-:root {
+/* :root {
   --blue: #006699;
   --ibmblue: #5A87C5;
   --violet2: rgb(107, 84, 201);
   --darkgray: #161616;
   --medgray: #262626;
   --lightgray: #f4f4f4;
-}
+} */
 
 /* *::-webkit-scrollbar {
   width: 12px;
@@ -19,4 +17,3 @@
 /* *::-webkit-scrollbar-thumb {
   background-color: var(--whiteTrans);
 } */
-

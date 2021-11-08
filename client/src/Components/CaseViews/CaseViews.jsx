@@ -11,6 +11,8 @@ const CaseViews = () => {
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState([]);
+
+  const name = localStorage.getItem("myData");
   // const onGridReady = (params) => {
   //   setGridApi(params.api);
   //   setGridColumnApi(params.columnApi);
@@ -32,7 +34,7 @@ const CaseViews = () => {
   //     .then((data) => updateData(data));
   // };
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/caseviews", {
+    fetch(`http://127.0.0.1:8000/caseviews/${name}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -43,7 +45,6 @@ const CaseViews = () => {
       })
       .then((data) => {
         setRowData(data);
-        console.log(data);
       });
   }, []);
 
@@ -107,14 +108,8 @@ const CaseViews = () => {
           sortable="true"
           headerName="Agent Name"
           field="sts_agent_name"
-          
         />
-        <AgGridColumn
-          sortable="true"
-          headerName="Type"
-          field="Type"
-          
-        />
+        <AgGridColumn sortable="true" headerName="Type" field="Type" />
         <AgGridColumn
           sortable="true"
           headerName="Session Created"
@@ -138,14 +133,12 @@ const CaseViews = () => {
           sortable="true"
           headerName="Account Name"
           field="account_name_formula"
-          
         />
         <AgGridColumn
           sortable="true"
           headerName="Case support"
           field="case_support_mission"
           width="300"
-        
         />
         <AgGridColumn
           sortable="true"
@@ -153,7 +146,6 @@ const CaseViews = () => {
           field="case_opened_date"
           type="dateColumn"
           width="300"
-
         />
         <AgGridColumn
           sortable="true"
@@ -161,23 +153,16 @@ const CaseViews = () => {
           field="status"
           type="numberColumn"
         />
-        <AgGridColumn
-          sortable="true"
-          headerName="Product"
-          field="product"
-          
-        />
+        <AgGridColumn sortable="true" headerName="Product" field="product" />
         <AgGridColumn
           sortable="true"
           headerName="Case Status"
           field="case_status"
-          
         />
         <AgGridColumn
           sortable="true"
           headerName="Case Owner"
           field="case_owner"
-         
         />
       </AgGridReact>
     </div>

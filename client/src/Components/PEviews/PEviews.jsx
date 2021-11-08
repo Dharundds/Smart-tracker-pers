@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react";
 import PEview from "../PEview";
 import "./PEviews.css";
+import Price from "../Price";
+import { useHistory } from "react-router";
+
 const PEviews = ({ name }) => {
+  const history = useHistory();
+
   const [pe, setPe] = useState([]);
-  const [per, setPer] = useState([]);
+  const [rsc, setRsc] = useState([]);
+  const [acc, setAcc] = useState([]);
+
+  let PE_name = localStorage.getItem("myData");
+
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/accview/${name}`, {
       method: "GET",
@@ -16,33 +25,56 @@ const PEviews = ({ name }) => {
       })
 
       .then((res) => {
-        setPe(res.PE);
-        setPer(res.RSC);
+        // setPe(res.PE);
+        setRsc(res.RSC);
+        setAcc(res.accounts);
+        console.log(res.accounts);
       });
   }, []);
   return (
     <>
       <div className="container">
-        {/* {pe.map((value, key) => (
-          <h1 key={key}>{value}</h1>
-        ))} */}
-        {pe.length > 0 &&
+        <h1>{PE_name}</h1>
+        {Object.keys(acc).map((val, key) => (
+          <div key={key}>
+            <h1>{val}</h1>
+            {acc[val].map((i, key) => (
+              <button
+                key={key}
+                onClick={() => {
+                  history.push({
+                    pathname: "/quote",
+                    state: { name: i, pename: val },
+                  });
+                }}
+              >
+                {i}
+              </button>
+            ))}
+          </div>
+        ))}
+        {/* {pe.length > 0 &&
           pe.map((val, key) => (
-            <PEview
-              key={key}
-              pename={val["PE_name"]}
-              nickname={val["cnickname"]}
-            />
+            <>
+              <PEview
+                key={key}
+                pename={val["PE_name"]}
+                nickname={val["cnickname"]}
+              />
+            </>
           ))}
         <hr />
         <hr />
-        {per.length &&
-          per.map((val, key) => (
+        {/* {nickname.map((element, key) => (
+          <h1 key={key}>{element}</h1>
+        ))} */}
+        {/* {rsc.length &&
+          rsc.map((val, key) => (
             <div key={key}>
               <h3>{val.resource_name}</h3>
               <h4>{val.cost}</h4>
             </div>
-          ))}
+          ))} */}
       </div>
     </>
   );
