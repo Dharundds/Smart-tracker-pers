@@ -8,6 +8,7 @@ import Dropdown from "../Dropdown/Dropdown";
 function Navbar() {
   const location = useLocation();
   const history = useHistory();
+  const [toggle, setToggle] = useState(false);
   let username = localStorage.getItem("myData");
 
   return (
@@ -24,24 +25,23 @@ function Navbar() {
         </div>
 
         <div className="profileContainer">
-        <p
-          className="profileName"
-          // onClick={() => {
-          //   history.push("/profile");
-          //}}
-        >
-          {username}
-        </p>
-        <div
-          className="profilePicContainer"
-          onClick={() => {
-            
-          }}
-          title={username}
-        >
-        
-          <Symbols.profile size="50px" id="profile" />
-          {/* <img
+          <p
+            className="profileName"
+            // onClick={() => {
+            //   history.push("/profile");
+            //}}
+          >
+            {username}
+          </p>
+          <div
+            className="profilePicContainer"
+            onClick={() => {
+              setToggle(!toggle);
+            }}
+            title={username}
+          >
+            <Symbols.profile size="50px" id="profile" />
+            {/* <img
                   src={profilePic}
                   alt=""
                   onDragStart={(e) => {
@@ -54,10 +54,10 @@ function Navbar() {
                     e.preventDefault();
                   }}
                 /> */}
-        </div>
+          </div>
         </div>
       </div>
-      <Dropdown/>
+      {toggle ? <Dropdown /> : null}
     </div>
   );
 }
