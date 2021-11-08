@@ -13,6 +13,9 @@ function Home() {
   }
   let username = localStorage.getItem("myData");
   const [view, setView] = useState("Accounts View");
+  const [username, setUsername] = useState(location.state.name);
+
+  // console.log(location.state.name);
   return (
     <div class="home">
       <button

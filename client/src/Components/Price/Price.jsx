@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Price = () => {
   const [data, setData] = useState([]);
   const [price, setPrice] = useState();
   const [isFull, setIsFull] = useState(false);
   const [is70, setis70] = useState(false);
-  let count = 0;
-  let tot = 1;
-  let cost = 0.0;
+
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/quoted/isetti", {
+    fetch("http://127.0.0.1:8000/quoted/RU", {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -31,7 +30,6 @@ const Price = () => {
       <h1>hi</h1>
       {(() => {
         if (isFull) {
-          console.log("hi");
           return <h1>100%</h1>;
         } else if (is70) {
           return <h1>70%</h1>;

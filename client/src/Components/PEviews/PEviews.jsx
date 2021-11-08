@@ -17,7 +17,7 @@ const PEviews = ({ name }) => {
 
       .then((res) => {
         setPe(res.PE);
-        setPer(res.PER);
+        setPer(res.RSC);
       });
   }, []);
   return (

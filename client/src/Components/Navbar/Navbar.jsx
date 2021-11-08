@@ -1,6 +1,6 @@
 import "./Navbar.css";
 import { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router-dom";
 import Symbols from "../Symbols";
 import logo from "../../Assets/logo.png";
 
