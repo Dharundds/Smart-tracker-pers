@@ -5,7 +5,9 @@ import Symbols from "../Symbols";
 import logo from "../../Assets/logo.png";
 
 function Navbar() {
+  const location = useLocation();
   const history = useHistory();
+  let username = localStorage.getItem("myData");
 
   return (
     <div className="NavBar">
@@ -13,10 +15,7 @@ function Navbar() {
         <div className="logo">
           <h1
             onClick={() => {
-              history.push({
-                pathname: "/home",
-                state: { name: "eks" },
-              });
+              history.push("/home");
             }}
           >
             <img src={logo} alt="logo" />
@@ -29,12 +28,15 @@ function Navbar() {
           // onClick={() => {
           //   history.push("/profile");
           //}}
-        ></p>
+        >
+          {username}
+        </p>
         <div
           className="profilePicContainer"
           // onClick={() => {
           //   history.push("/profile");
           //}}
+          title={username}
         >
           <Symbols.profile size="40px" id="profile" />
           {/* <img

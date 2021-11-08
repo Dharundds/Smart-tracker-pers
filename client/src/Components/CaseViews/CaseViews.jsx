@@ -52,7 +52,7 @@ const CaseViews = () => {
       <AgGridReact
         defaultColDef={{
           width: 150,
-          editable: true,
+          editable: false,
           filter: "agTextColumnFilter",
           floatingFilter: true,
           resizable: true,
