@@ -34,10 +34,10 @@ const PEviews = ({ name }) => {
   return (
     <>
       <div className="container">
-        <h1>{PE_name}</h1>
+        <h1>PE name: {PE_name}</h1>
         {Object.keys(acc).map((val, key) => (
           <div key={key}>
-            <h1>{val}</h1>
+            <h1>Account Name :{val}</h1>
             {acc[val].map((i, key) => (
               <button
                 key={key}
