@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Symbols from "../Symbols";
 import logo from "../../Assets/logo.png";
+import Dropdown from "../Dropdown/Dropdown";
 
 function Navbar() {
   const location = useLocation();
@@ -22,7 +23,7 @@ function Navbar() {
           </h1>
         </div>
 
-        <div className="profileContainer"></div>
+        <div className="profileContainer">
         <p
           className="profileName"
           // onClick={() => {
@@ -33,12 +34,13 @@ function Navbar() {
         </p>
         <div
           className="profilePicContainer"
-          // onClick={() => {
-          //   history.push("/profile");
-          //}}
+          onClick={() => {
+            
+          }}
           title={username}
         >
-          <Symbols.profile size="40px" id="profile" />
+        
+          <Symbols.profile size="50px" id="profile" />
           {/* <img
                   src={profilePic}
                   alt=""
@@ -53,7 +55,9 @@ function Navbar() {
                   }}
                 /> */}
         </div>
+        </div>
       </div>
+      <Dropdown/>
     </div>
   );
 }
