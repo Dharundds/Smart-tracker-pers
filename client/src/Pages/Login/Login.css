@@ -33,6 +33,7 @@
 .login button {
   margin-top: 50px;
   border: none;
+  font-size: medium;
   color: #fff;
   background-color: #0062ff;
   width: 100px;

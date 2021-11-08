@@ -52,7 +52,7 @@ const CaseViews = () => {
     <div className="ag-theme-alpine" style={{ height: "750px" }}>
       <AgGridReact
         defaultColDef={{
-          width: 150,
+          width: 140,
           editable: false,
           filter: "agTextColumnFilter",
           floatingFilter: true,
@@ -121,7 +121,7 @@ const CaseViews = () => {
           headerName="Case Severity"
           field="case_severity_level"
           type="numberColumn"
-          width="300"
+          
         />
         <AgGridColumn
           sortable="true"
@@ -138,14 +138,14 @@ const CaseViews = () => {
           sortable="true"
           headerName="Case support"
           field="case_support_mission"
-          width="300"
+         
         />
         <AgGridColumn
           sortable="true"
           headerName="Case Open Date"
           field="case_opened_date"
           type="dateColumn"
-          width="300"
+         
         />
         <AgGridColumn
           sortable="true"
@@ -163,6 +163,7 @@ const CaseViews = () => {
           sortable="true"
           headerName="Case Owner"
           field="case_owner"
+          width="110"
         />
       </AgGridReact>
     </div>

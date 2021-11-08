@@ -25,8 +25,9 @@ function Navbar() {
             <img src={logo} alt="logo" />
           </h1>
         </div>
-        <p className="profileName">{username}</p>
+      
         <div className="profileContainer">
+        <p className="profileName">{username}</p>
           <div
             className="profilePicContainer"
             title={username}
