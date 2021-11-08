@@ -4,9 +4,10 @@ import Symbols from "../../Components/Symbols";
 import CaseViews from "../../Components/CaseViews";
 import PEviews from "../../Components/PEviews/PEviews";
 import "./Home.css";
+import Alert from "../../Components/Alert/Alert";
 function Home() {
   const [view, setView] = useState("Accounts View");
-  const username= localStorage.getItem("myData");
+  const username = localStorage.getItem("myData");
 
   return (
     <div class="home">
@@ -22,6 +23,7 @@ function Home() {
       >
         {view}
       </button>
+      <Alert />
       <div className="homeMC">
         {view === "Case View" ? <PEviews name={username} /> : <CaseViews />}
       </div>
