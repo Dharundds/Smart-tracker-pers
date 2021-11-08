@@ -7,6 +7,11 @@ import "./Home.css";
 function Home() {
   const history = useHistory();
   const location = useLocation();
+
+  if (localStorage.getItem("myData") == null) {
+    localStorage.setItem("myData", location.state.name);
+  }
+  let username = localStorage.getItem("myData");
   const [view, setView] = useState("Accounts View");
   const [username, setUsername] = useState(location.state.name);
 
