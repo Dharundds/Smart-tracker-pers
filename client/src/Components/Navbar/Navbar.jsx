@@ -2,7 +2,6 @@ import "./Navbar.css";
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Symbols from "../Symbols";
-import logo from "../../Assets/logo.png";
 import Dropdown from "../Dropdown/Dropdown";
 
 function Navbar() {
@@ -22,7 +21,8 @@ function Navbar() {
               history.push("/home");
             }}
           >
-            <img src={logo} alt="logo" />
+         
+            <Symbols.logo/>
           </h1>
         </div>
       

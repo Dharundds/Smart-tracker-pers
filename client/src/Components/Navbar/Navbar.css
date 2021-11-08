@@ -28,13 +28,10 @@
 
 .NavBar .navBarContainer .logo {
   cursor: pointer;
-  margin-left: -20px;
+  margin-left: 20px;
   margin-top: 10px;
 }
-.NavBar .navBarContainer .logo img {
-  height: 150px;
-  width: 195px;
-}
+
 .NavBar .navBarContainer .logo:hover > h1 {
   text-shadow: 1px 1px 5px var(--violet3);
 }

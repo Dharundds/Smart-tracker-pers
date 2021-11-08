@@ -1,6 +1,7 @@
+
 const Alert = () => {
   return (
-    <div>
+    <div className="alert">
       {/* orange */}
       <h1>You are hitting The consumption price</h1>
       {/* red */}

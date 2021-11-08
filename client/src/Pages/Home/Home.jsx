@@ -6,7 +6,7 @@ import PEviews from "../../Components/PEviews/PEviews";
 import "./Home.css";
 function Home() {
   const [view, setView] = useState("Accounts View");
-  const [username, setUsername] = useState(localStorage.getItem("myData"));
+  const username= localStorage.getItem("myData");
 
   return (
     <div class="home">

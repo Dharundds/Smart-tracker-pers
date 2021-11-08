@@ -13,27 +13,13 @@ const CaseViews = () => {
   const [rowData, setRowData] = useState([]);
 
   const name = localStorage.getItem("myData");
-  // const onGridReady = (params) => {
-  //   setGridApi(params.api);
-  //   setGridColumnApi(params.columnApi);
 
-  //   const updateData = (data) => {
-  //     setRowData(data);
-  //     console.log(data);
-  //   };
 
-  //   fetch("http://127.0.0.1:8000/caseviews", {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-type": "application/json",
-  //     },
-  //   })
-  //     .then((resp) => {
-  //       return resp.json();
-  //     })
-  //     .then((data) => updateData(data));
-  // };
-  useEffect(() => {
+const onGridReady = (params) => {
+  setGridApi(params.api);
+  setGridColumnApi(params.columnApi)
+  console.log(gridApi);
+
     fetch(`http://127.0.0.1:8000/caseviews/${name}`, {
       method: "GET",
       headers: {
@@ -46,9 +32,18 @@ const CaseViews = () => {
       .then((data) => {
         setRowData(data);
       });
-  }, []);
 
+      
+  };
+ 
+  function onBtExport() {
+    gridApi.exportDataAsCsv();
+  }
   return (
+    <div className="caseViews">
+ <button onClick={() => {
+              onBtExport();
+            }}>Export table as CSV</button>
     <div className="ag-theme-alpine" style={{ height: "750px" }}>
       <AgGridReact
         defaultColDef={{
@@ -90,7 +85,7 @@ const CaseViews = () => {
             },
           },
         }}
-        // onGridReady={onGridReady}
+        onGridReady={onGridReady}
         rowData={rowData}
         rowSelection="multiple"
       >
@@ -166,6 +161,7 @@ const CaseViews = () => {
           width="110"
         />
       </AgGridReact>
+    </div>
     </div>
   );
 };
