@@ -11,11 +11,9 @@ function Home() {
   if (localStorage.getItem("myData") == null) {
     localStorage.setItem("myData", location.state.name);
   }
-  let username = localStorage.getItem("myData");
   const [view, setView] = useState("Accounts View");
-  const [username, setUsername] = useState(location.state.name);
+  const [username, setUsername] = useState(localStorage.getItem("myData"));
 
-  // console.log(location.state.name);
   return (
     <div class="home">
       <button
