@@ -86,21 +86,24 @@ class Caseview(APIView):
         return Response(serializer.data)
 
 
-class QuotedPriceView(APIView):
+class TotalConsumptionView(APIView):
     serializers_class = RSCSerializer
     count = 0
     cost = 0.00
-    full = 1000.00
+    full = 500
     is_70 = False
     is_100 = False
 
     def get(self, request, name, pename):
         time_spt = CaseView.objects.filter(
             sts_agent_name=name.split("|")[1], account_name_formula=pename)
+        threshold = Threshold.objects.filter(
+            acc_name=pename, rsc_name=name.split("|")[1])
         price = ResourceNameModel.objects.filter(
             role=name.split("|")[0], resource_name=name.split("|")[1])
         serializer = CaseViewSerializer(time_spt, many=True)
         s = RSCSerializer(price, many=True)
+        consumption = ThresholdSerializer(threshold)
         for data in serializer.data:
             self.count += float(data['session_time'])
         for i in s.data:
@@ -122,6 +125,10 @@ class QuotedPriceView(APIView):
             "count": self.count,
         }
         return Response(content)
+
+    def post(self, request, name, pename):
+        print(request.data.get('threshold'))
+        return Response({"hi": "hi"})
 
 
 class UpdateEmail(APIView):

@@ -25,3 +25,9 @@ class RSCSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceNameModel
         fields = ['id', 'role', 'resource_name', 'name_per_ilc', 'cost']
+
+
+class ThresholdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Threshold
+        fields = ['id', 'acc_name', 'rsc_name', 'max_threshold']

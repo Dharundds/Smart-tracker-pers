@@ -61,6 +61,15 @@ class General(models.Model):
         return self.name
 
 
+class Threshold(models.Model):
+    acc_name = models.CharField(default="", max_length=255)
+    rsc_name = models.CharField(default="", max_length=255)
+    max_threshold = models.IntegerField(default=100)
+
+    def __str__(self):
+        return str(self.max_threshold)
+
+
 def uploadfile():
     exl = pd.ExcelFile('resource/RSC_Resource_Name_List_V3_Masked_1.xlsx')
     # ----------------------------MCR--------------------------------------
@@ -97,4 +106,5 @@ def uploadfile():
             cost=cost1,
         )
         rsc1.save()
+
     os.remove("resource/RSC_Resource_Name_List_V3_Masked_1.xlsx")

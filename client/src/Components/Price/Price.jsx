@@ -6,13 +6,13 @@ const Price = () => {
   const [price, setPrice] = useState();
   const [isFull, setIsFull] = useState(false);
   const [is70, setis70] = useState(false);
-
+  const [value, setValue] = useState(50);
   const location = useLocation();
   const name = location.state.name || "";
   const pename = location.state.pename || "";
   console.log(name.split("|")[1]);
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/quoted/${name}/${pename}`, {
+    fetch(`http://127.0.0.1:8000/tot_consumption/${name}/${pename}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -30,6 +30,20 @@ const Price = () => {
         console.log(res);
       });
   }, []);
+
+  const handleSetthreshold = async (threshold) => {
+    const content = {
+      threshold,
+    };
+    await fetch(`http://127.0.0.1:8000/tot_consumption/${name}/${pename}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(content),
+    }).then((res) => res.json());
+  };
+
   return (
     <div>
       <h1>{name}</h1>
@@ -40,6 +54,18 @@ const Price = () => {
           return <h1>70%</h1>;
         }
       })()} */}
+      <div className="threshold-container">
+        <h1>Set Threshold</h1>
+        <div className="set-threshold">
+          <input
+            type="number"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          value:{value}
+          <button onClick={() => handleSetthreshold(value)}>Set</button>
+        </div>
+      </div>
     </div>
   );
 };
