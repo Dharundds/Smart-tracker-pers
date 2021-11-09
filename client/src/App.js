@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/home" component={Home} />
         <Route path="/caseviews" component={CaseViews} />
         <Route path="/peviews" component={PEviews} />
-        <Route path="/caseview/:id" component={Caseview} />
+        <Route path="/caseview" component={Caseview} />
         <Route path="/quote" component={Price} />
         <Route path="/settings" component={Settings} />
       </>

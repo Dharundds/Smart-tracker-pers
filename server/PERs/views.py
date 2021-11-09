@@ -78,9 +78,9 @@ class CaseViews(APIView):
 class Caseview(APIView):
     serializer_class = CaseViewSerializer
 
-    def get(self, request, id):
-        data = CaseView.objects.filter(id=id)
-
+    def get(self, request, name, pename):
+        data = CaseView.objects.filter(
+            sts_agent_name=name.split("|")[1], account_name_formula=pename)
         serializer = CaseViewSerializer(data, many=True)
 
         return Response(serializer.data)

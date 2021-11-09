@@ -21,12 +21,12 @@ const PEviews = ({ name }) => {
   const [focusedItem, setFocusedItem] = useState();
   const [expandedItems, setExpandedItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [items,setItems]= useState([]);
+  const [items, setItems] = useState([]);
   const PE_name = localStorage.getItem("myData");
-  
-  const [mapped,setMapped]=useState(false);
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/accview/${name}`, {
+
+  const [mapped, setMapped] = useState(false);
+  useEffect(async () => {
+    await fetch(`http://127.0.0.1:8000/accview/${name}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -37,86 +37,101 @@ const PEviews = ({ name }) => {
       })
 
       .then((res) => {
-        // setPe(res.PE);
+        setPe(res.PE);
         setRsc(res.RSC);
         setAcc(res.accounts);
         // console.log(res)
         // console.log(res.accounts);
-      })
-      .then((res)=>{
-        var item1 = { root: {
-          index: "root",
-          hasChildren: true,
-          children: [PE_name],
-          data: "Root item",
-        },
-      
-            [PE_name]: {
-              index: PE_name,
-              hasChildren: true,
-              children: Object.keys(acc),
-              data: PE_name,
-            },
-          }
-          Object.keys(acc).map((val, key) => {
-        // setMapped(true);
-      //uncomment the abv line after execution the code will work
-            (item1[val] = {
-              index: val,
-              hasChildren: true,
-              children: acc[val],
-              data: val,
-            });
-
-              
-          });
-          Object.keys(acc).forEach((e)=>console.log(e))
-        console.log(item1)
-        setItems(item1)
-    
       });
   }, []);
 
-
-  
-
-  // items["child2"] = {
-  //   index: "child2",
-  //   data: "child item 2",
-  // };
- 
-
-    
-    
- 
-  if (mapped){
-    
-    console.log(items);
-    console.log(Object.keys(acc));
-  
-
   return (
-    <div className="container">
-    {mapped ? <UncontrolledTreeEnvironment
-        dataProvider={
-          new StaticTreeDataProvider(items, (item, data) => ({ ...item, data }))
-        }
-        getItemTitle={(item) => item.data}
-        viewState={{}}
-      >
-        <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
-      </UncontrolledTreeEnvironment> : null }
-      
+    <div>
+      <h1>PE name: {PE_name}</h1>
+      {Object.keys(acc).map((val, key) => (
+        <div key={key}>
+          <h1>Account Name :{val}</h1>
+          {acc[val].map((i, key) => (
+            <button
+              key={key}
+              onClick={() => {
+                history.push({
+                  pathname: "/caseview",
+                  state: { name: i, pename: val },
+                });
+              }}
+            >
+              {i}
+            </button>
+          ))}
+        </div>
+      ))}
     </div>
   );
-
-      }
-      else{
-        return(
-          <></>
-        );
-      }
 };
+
+//     .then((res) => {
+//       var item1 = {
+//         root: {
+//           index: "root",
+//           hasChildren: true,
+//           children: [PE_name],
+//           data: "Root item",
+//         },
+
+//         [PE_name]: {
+//           index: PE_name,
+//           hasChildren: true,
+//           children: Object.keys(acc),
+//           data: PE_name,
+//         },
+//       };
+//       Object.keys(acc).map((val, key) => {
+//         //uncomment the abv line after execution the code will work
+//         setMapped(true);
+//         item1[val] = {
+//           index: val,
+//           hasChildren: true,
+//           children: acc[val],
+//           data: val,
+//         };
+//       });
+//       Object.keys(acc).forEach((e) => console.log(e));
+//       console.log(item1);
+//       setItems(item1);
+//     });
+// }, []);
+// // items["child2"] = {
+// //   index: "child2",
+// //   data: "child item 2",
+// // };
+
+// if (mapped) {
+//   console.log(items);
+//   console.log(Object.keys(acc));
+
+//   return (
+//     <div className="container">
+//       {mapped ? (
+//         <UncontrolledTreeEnvironment
+//           dataProvider={
+//             new StaticTreeDataProvider(items, (item, data) => ({
+//               ...item,
+//               data,
+//             }))
+//           }
+//           getItemTitle={(item) => item.data}
+//           viewState={{}}
+//         >
+//           <Tree treeId="tree-1" rootItem="root" treeLabel="Tree Example" />
+//         </UncontrolledTreeEnvironment>
+//       ) : null}
+//       </div>
+//     );
+//   } else {
+//     return <></>;
+//   }
+// };
 
 export default PEviews;
 //  {/* <h1>PE name: {PE_name}</h1>
