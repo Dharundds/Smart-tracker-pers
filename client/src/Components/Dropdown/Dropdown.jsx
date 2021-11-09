@@ -9,8 +9,10 @@ const Dropdown = () => {
       <div className="dropdown">
         <Symbols.profile size="100px" />
         <div className="buttons">
-          <button id="but1"> Edit profile</button>
-          <button id="but2"> Set Threshold</button>
+          <button id="but2" onClick={() => history.push("/settings")}>
+            {" "}
+            Settings
+          </button>
           <button
             id="logout"
             onClick={() => {

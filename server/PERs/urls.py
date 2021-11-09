@@ -10,5 +10,6 @@ urlpatterns = [
     path('caseview/<int:id>', Caseview.as_view(), name='caseview'),
     path('quoted/<str:name>/<str:pename>',
          QuotedPriceView.as_view(), name='quoted'),
+    path('updateEmail', UpdateEmail.as_view(), name='update')
     # path('deletecaseviews', DeleteAll.as_view(), name="delete")
 ]

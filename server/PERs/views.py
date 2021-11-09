@@ -38,14 +38,12 @@ class AccountView(APIView):
         for n in cus_nick:
             li = []
             for a in acc_serializer.data:
-                for r in rsc_serializer.data:
-                    if r["role"] == "PER":
-                        if n == a['account_name_formula'] and a['sts_agent_name'] is not None:
-                            li.append("PER"+"|"+str(a['sts_agent_name']))
-                    elif r['role'] == "MCR":
-                        if n == a['account_name_formula'] and a['sts_agent_name'] is not None:
-                            li.append("MCR"+"|"+str(a['sts_agent_name']))
-                cont[n] = set(li)
+                if n == str(a['account_name_formula']):
+                    for r in rsc_serializer.data:
+                        if r['resource_name'] == str(a['sts_agent_name']):
+                            print(r["role"]+a['sts_agent_name'])
+                            li.append(r["role"]+"|"+str(a['sts_agent_name']))
+            cont[n] = set(li)
 
         content = {
             "PE": serializer.data,
@@ -63,11 +61,16 @@ class CaseViews(APIView):
 
     def get(self, request, name):
         acc_name = PEModel.objects.filter(PE_name=name)
-        acc_name_serialzer = PEViewSerializer(acc_name, many=True)
+        acc_name_serializer = PEViewSerializer(acc_name, many=True)
         data = CaseView.objects.filter(
-            account_name_formula__in=[val['cnickname'] for val in acc_name_serialzer.data])
+            account_name_formula__in=[val['cnickname'] for val in acc_name_serializer.data])
         serializer = CaseViewSerializer(data, many=True)
-        return Response(serializer.data)
+
+        content = {
+            'cases': serializer.data,
+        }
+
+        return Response(content)
 
     def post(self, request):
         pass
@@ -120,6 +123,16 @@ class QuotedPriceView(APIView):
             "count": self.count,
         }
         return Response(content)
+
+
+class UpdateEmail(APIView):
+
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        print(request.data.get('email'))
+        return Response({"hi": "hi"})
 
 
 # class DeleteAll(APIView):

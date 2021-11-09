@@ -14,6 +14,7 @@ import CaseViews from "./Components/CaseViews";
 import PEviews from "./Components/PEviews";
 import Caseview from "./Components/Caseview";
 import Price from "./Components/Price";
+import Settings from "./Components/Settings";
 
 function App() {
   const [name, setName] = useState("");
@@ -32,6 +33,7 @@ function App() {
         <Route path="/peviews" component={PEviews} />
         <Route path="/caseview/:id" component={Caseview} />
         <Route path="/quote" component={Price} />
+        <Route path="/settings" component={Settings} />
       </>
     </Switch>
   );

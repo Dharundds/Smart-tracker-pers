@@ -2,7 +2,7 @@ import "./Navbar.css";
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Symbols from "../Symbols";
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "../Dropdown";
 
 function Navbar() {
   const location = useLocation();
@@ -21,13 +21,12 @@ function Navbar() {
               history.push("/home");
             }}
           >
-         
-            <Symbols.logo/>
+            <Symbols.logo />
           </h1>
         </div>
-      
+
         <div className="profileContainer">
-        <p className="profileName">{username}</p>
+          <p className="profileName">{username}</p>
           <div
             className="profilePicContainer"
             title={username}
