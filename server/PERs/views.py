@@ -40,7 +40,6 @@ class AccountView(APIView):
                 if n == str(a['account_name_formula']):
                     for r in rsc_serializer.data:
                         if r['resource_name'] == str(a['sts_agent_name']):
-                            print(r["role"]+a['sts_agent_name'])
                             li.append(r["role"]+"|"+str(a['sts_agent_name']))
             cont[n] = set(li)
 
@@ -97,13 +96,10 @@ class TotalConsumptionView(APIView):
     def get(self, request, name, pename):
         time_spt = CaseView.objects.filter(
             sts_agent_name=name.split("|")[1], account_name_formula=pename)
-        threshold = Threshold.objects.filter(
-            acc_name=pename, rsc_name=name.split("|")[1])
         price = ResourceNameModel.objects.filter(
             role=name.split("|")[0], resource_name=name.split("|")[1])
         serializer = CaseViewSerializer(time_spt, many=True)
         s = RSCSerializer(price, many=True)
-        consumption = ThresholdSerializer(threshold)
         for data in serializer.data:
             self.count += float(data['session_time'])
         for i in s.data:
