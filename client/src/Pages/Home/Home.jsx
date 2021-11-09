@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useHistory, useLocation } from "react-router";
-import Symbols from "../../Components/Symbols";
 import CaseViews from "../../Components/CaseViews";
 import PEviews from "../../Components/PEviews/PEviews";
 import "./Home.css";
 import Alert from "../../Components/Alert/Alert";
 function Home() {
-  const [view, setView] = useState("Accounts View");
+  const [view, setView] = useState("Account View");
   const username = localStorage.getItem("myData");
 
   return (

@@ -1,4 +1,4 @@
-import { Switch, Route, useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import "./Login.css";
 function Login() {
@@ -6,17 +6,16 @@ function Login() {
   const [name, setName] = useState("");
   return (
     <div className="loginMC">
-      {" "}
-      {/*main container*/}
       <div className="loginSC">
-        {/*sub container*/}
+        {/*sub container*/}{" "}
         <div className="login">
-          <h1> Log in to IBM </h1>
+          <h1> Login</h1>
           <form>
             <input
               type="text"
               className="uname"
               value={name}
+              placeholder="Username"
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -31,7 +30,6 @@ function Login() {
                 });
               }}
             >
-              {" "}
               Login
             </button>
           </form>

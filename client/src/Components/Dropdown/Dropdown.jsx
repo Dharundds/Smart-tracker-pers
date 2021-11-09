@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useHistory } from "react-router";
 import "./Dropdown.css";
 import Symbols from "../Symbols";

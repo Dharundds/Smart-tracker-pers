@@ -2,16 +2,12 @@
   width: 100%;
   height: 6vh;
   user-select: none;
-  /* position: absolute; */
   z-index: 999;
-
   position: sticky;
   top: 0;
   width: 100%;
 }
-/* .navBarContainer #profile{
 
-  } */
 .NavBar .navBarContainer {
   width: 100%;
   height: inherit;
@@ -59,5 +55,5 @@
 
 .NavBar .navBarContainer .profileName {
   position: absolute;
-  right:120px;
+  right: 120px;
 }

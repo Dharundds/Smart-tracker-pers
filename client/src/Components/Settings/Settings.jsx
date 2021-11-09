@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "./Settings.css";
 const Settings = () => {
   let username = localStorage.getItem("myData");
 
@@ -19,17 +19,26 @@ const Settings = () => {
   };
 
   return (
-    <div>
-      <div className="profile-container">
-        <h1>Profile</h1>
-        <form>
-          Username: <input type="text" value={username} disabled />
-          Email :{" "}
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />{" "}
+    <div className="settingsMC">
+      <div className="settingsSC">
+        <div className="settings">
+          <h1>Profile</h1>
+          <form>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              disabled
+              id="username"
+            />
+            <input
+              type="email"
+              value={email}
+              id="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />{" "}
+          </form>
           <button
             type="button"
             onClick={() => handleOnUpdateEmail(email)}
@@ -37,8 +46,7 @@ const Settings = () => {
           >
             Update Email
           </button>
-          {email}
-        </form>
+        </div>
       </div>
     </div>
   );

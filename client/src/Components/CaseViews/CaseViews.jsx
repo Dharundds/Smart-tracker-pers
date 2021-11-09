@@ -17,7 +17,6 @@ const CaseViews = () => {
   const onGridReady = (params) => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
-    console.log(gridApi);
 
     fetch(`http://127.0.0.1:8000/caseviews/${name}`, {
       method: "GET",
