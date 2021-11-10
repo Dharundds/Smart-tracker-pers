@@ -16,7 +16,6 @@ class ResourceModelAdmin(ImportExportActionModelAdmin):
     resource_class = RSCModelResource
 
 
-admin.site.register(General)
 admin.site.register(CaseView, CaseViewAdmin)
 admin.site.register(ResourceNameModel, ResourceModelAdmin)
 admin.site.register(PEModel, PEAdmin)
