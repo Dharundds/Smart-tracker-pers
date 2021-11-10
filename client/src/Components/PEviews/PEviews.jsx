@@ -10,8 +10,8 @@ const PEviews = ({ name }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [Key, setKey] = useState(0);
   const PE_name = localStorage.getItem("myData");
-  useEffect(async () => {
-    await fetch(`http://127.0.0.1:8000/accview/${name}`, {
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/accview/${name}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
