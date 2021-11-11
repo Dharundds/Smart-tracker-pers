@@ -49,7 +49,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
 ]
 
-ROOT_URLCONF = 'SmartTracker.urls'
+ROOT_URLCONF = 'Smart-tracker-pers.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'SmartTracker.wsgi.application'
+WSGI_APPLICATION = 'Smart-tracker-pers.wsgi.application'
 
 
 # Database
