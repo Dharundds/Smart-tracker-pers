@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 import "./PEviews.css";
 import "react-complex-tree/lib/style.css";
 import { useHistory } from "react-router";
+import Symbols from "../Symbols";
+
 const PEviews = ({ name }) => {
   const history = useHistory();
-  const [pe, setPe] = useState([]);
-  const [rsc, setRsc] = useState([]);
   const [acc, setAcc] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [Key, setKey] = useState(0);
   const PE_name = localStorage.getItem("myData");
-  useEffect(async () => {
-    await fetch(`http://127.0.0.1:8000/accview/${name}`, {
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/accview/${name}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -20,8 +22,6 @@ const PEviews = ({ name }) => {
       })
 
       .then((res) => {
-        setPe(res.PE);
-        setRsc(res.RSC);
         setAcc(res.accounts);
       });
   }, []);
@@ -35,23 +35,48 @@ const PEviews = ({ name }) => {
       </div>
       <div className="peAcc">
         {Object.keys(acc).map((val, key) => (
-          <div key={key}>
+          <div className="accName" key={key}>
             <h2 title="Account name">
               Account Name:&nbsp; <span>{val}</span>
             </h2>
-            {acc[val].map((i, key) => (
-              <a
-                key={key}
+            {!isVisible ? (
+              <div
                 onClick={() => {
-                  history.push({
-                    pathname: "/caseview",
-                    state: { name: i, pename: val },
-                  });
+                  setIsVisible(true);
+                  setKey(key);
                 }}
               >
-                {i}
-              </a>
-            ))}
+                <Symbols.Add size={24} />
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setIsVisible(false);
+                  setKey(key);
+                }}
+              >
+                <Symbols.Minus size={24} />
+              </div>
+            )}
+            <div>
+              {isVisible && Key === key ? (
+                acc[val].map((i, key) => (
+                  <a
+                    key={key}
+                    onClick={() => {
+                      history.push({
+                        pathname: "/caseview",
+                        state: { name: i, pename: val },
+                      });
+                    }}
+                  >
+                    {i}
+                  </a>
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
         ))}
       </div>

@@ -1,6 +1,5 @@
 from import_export import resources, fields
 from .models import *
-from tablib import Databook
 
 
 class PEModelResource(resources.ModelResource):

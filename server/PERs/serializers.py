@@ -2,12 +2,6 @@ from rest_framework import serializers
 from .models import *
 
 
-class GeneralSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = General
-        fields = ['name', 'age']
-
-
 class CaseViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = CaseView

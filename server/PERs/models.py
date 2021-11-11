@@ -53,14 +53,6 @@ class ResourceNameModel(models.Model):
         return str(self.role) + " | " + str(self.resource_name)
 
 
-class General(models.Model):
-    name = models.CharField(max_length=100)
-    age = models.IntegerField()
-
-    def __str__(self):
-        return self.name
-
-
 class Threshold(models.Model):
     acc_name = models.CharField(default="", max_length=255)
     rsc_name = models.CharField(default="", max_length=255)
