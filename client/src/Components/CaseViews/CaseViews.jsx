@@ -1,13 +1,9 @@
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState} from "react";
 import "./CaseViews.css";
-import Symbols from "../Symbols";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 const CaseViews = () => {
-  const [isLoading, setisLoading] = useState(true);
-  const [caseView, setCaseView] = useState({});
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState([]);

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./PEviews.css";
-import "react-complex-tree/lib/style.css";
 import { useHistory } from "react-router";
 import Symbols from "../Symbols";
 
