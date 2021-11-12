@@ -11,23 +11,25 @@ import { useState } from "react";
 
 function App() {
   const [server, setServer] = useState(true);
-  fetch('http://127.0.0.1:8000/')
-  .then((resp) => {
-     setServer(true);
-   }, (e)=>{
-     console.error(e)
-          setServer(false);
-   })
-  .catch((error) => {
-       console.log('network error: ' + error);
-   })
-   if (!server){
+  fetch("http://127.0.0.1:8000/")
+    .then(
+      (resp) => {
+        setServer(true);
+      },
+      (e) => {
+        setServer(false);
+      }
+    )
+    .catch((error) => {
+      console.log("network error: " + error);
+    });
+  if (!server) {
     return (
       <div className="serverError">
         <h1>We ran into a problem , is the server running?</h1>
       </div>
     );
-   }
+  }
   return (
     <Switch>
       <Redirect exact from="/" to="/login" />
