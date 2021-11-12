@@ -8,7 +8,7 @@ const PEviews = ({ name }) => {
   const [acc, setAcc] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [Key, setKey] = useState(0);
-  const PE_name = localStorage.getItem("myData");
+  const PE_name = localStorage.getItem("username");
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/accview/${name}`, {
       method: "GET",

@@ -3,7 +3,7 @@ const logo = ({ size }) => {
     <svg
       width="100"
       height="65"
-      class="bx--footer-logo__logo"
+      className="bx--footer-logo__logo"
       viewBox="0 0 157 65"
       xmlns="http://www.w3.org/2000/svg"
       fill="black"

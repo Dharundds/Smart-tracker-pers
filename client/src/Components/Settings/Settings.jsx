@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Settings.css";
 const Settings = () => {
-  let username = localStorage.getItem("myData");
+  let username = localStorage.getItem("username");
 
   const [email, setEmail] = useState("");
 

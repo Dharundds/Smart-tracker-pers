@@ -8,9 +8,12 @@ function Navbar() {
   const location = useLocation();
   const history = useHistory();
   const [toggle, setToggle] = useState(false);
-  const username = localStorage.getItem("myData");
-  if (localStorage.getItem("myData") === null) {
-    localStorage.setItem("myData", location.state.name);
+  const username = localStorage.getItem("username");
+  if (localStorage.getItem("username") === null) {
+    localStorage.setItem("username", location.state.name);
+  } else if (localStorage.getItem("username") !== location.state.name) {
+    localStorage.clear();
+    localStorage.setItem("username", location.state.name);
   }
   return (
     <div className="NavBar">

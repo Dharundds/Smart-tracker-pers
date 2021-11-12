@@ -5,7 +5,7 @@ import "./Home.css";
 import Alert from "../../Components/Alert/Alert";
 function Home() {
   const [view, setView] = useState("Account View");
-  const username = localStorage.getItem("myData");
+  const username = localStorage.getItem("username");
 
   return (
     <div class="home">

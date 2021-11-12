@@ -8,7 +8,7 @@ const CaseViews = () => {
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState([]);
 
-  const name = localStorage.getItem("myData");
+  const name = localStorage.getItem("username");
 
   const onGridReady = (params) => {
     setGridApi(params.api);
