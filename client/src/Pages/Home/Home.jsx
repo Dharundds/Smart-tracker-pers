@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 import "./Home.css";
 import Alert from "../../Components/Alert";
 function Home() {
-  const [view, setView] = useState("Account View");
   const username = localStorage.getItem("username");
   const history = useHistory();
   useEffect(() => {

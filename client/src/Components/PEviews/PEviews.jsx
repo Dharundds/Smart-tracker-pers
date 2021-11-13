@@ -2,41 +2,50 @@ import { useState, useEffect } from "react";
 import "./PEviews.css";
 import { useHistory } from "react-router";
 import Symbols from "../Symbols";
-
+import Card from "../Card/Card";
+import Dropdown from "../Dropdown/Dropdown";
 const PEviews = () => {
   const history = useHistory();
   const [price, setPrice] = useState([]);
   const [acc, setAcc] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [Key, setKey] = useState(0);
-  const PE_name = localStorage.getItem("username");
+  const username = localStorage.getItem("username");
+
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/accview/${PE_name}`, {
+    fetch(`http://127.0.0.1:8000/${username}`, {
       method: "GET",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
     })
+      .then((res) => res.json())
       .then((res) => {
-        return res.json();
-      })
-
-      .then((res) => {
-        setPrice(res.RSC);
-        setAcc(res.acc_case);
-        console.log(res.RSC, res.acc_case);
+        console.log(res);
+        setAcc(res);
       });
   }, []);
-
   return (
     <div className="peviews">
       <div className="peName">
         <h1 title="Name">
-          Name:&nbsp; <span> {PE_name}</span>
+          Name:&nbsp; <span> {username}</span>
         </h1>
       </div>
-      {/* <div className="peAcc">
-        {Object.keys(acc).map((val, key) => (
+      <div className="peAcc">
+        {acc.map((val, key) => (
+          <div
+            onClick={() => {
+              history.push({
+                pathname: "/caseview",
+                state: {  pename: val.cnickname },
+              });
+            }}
+          >
+            <Card accName={val.cnickname} key={key}></Card>
+          </div>
+        ))}
+        {/* {Object.keys(acc).map((val, key) => (
           <div className="accName" key={key}>
             <h2 title="Account name">
               Account Name:&nbsp; <span>{val}</span>
@@ -80,10 +89,8 @@ const PEviews = () => {
               )}
             </div>
           </div>
-        ))}
-      </div> */}
-      {price}
-      {acc}
+        ))} */}
+      </div>
     </div>
   );
 };

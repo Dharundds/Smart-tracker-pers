@@ -1,0 +1,24 @@
+.cardMC {
+  width: 200px;
+  height: 250px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 7px 7px 7px 7px rgba(0, 0, 0, 0.349);
+  margin-left: 100px;
+  border-radius: 5px;
+}
+.card {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  flex-direction: column;
+}
+.card h1 {
+  color: #0062ff;
+}
+
+.cardMC:hover{
+    transform: scale(1.1);
+    transition: 300ms;
+}

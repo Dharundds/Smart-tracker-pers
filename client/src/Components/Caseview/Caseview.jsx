@@ -5,9 +5,9 @@ import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
-const Caseview = ({ acc_name }) => {
+const Caseview = () => {
   const location = useLocation();
-
+const accName=location.state.pename;
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState([]);
@@ -31,21 +31,23 @@ const Caseview = ({ acc_name }) => {
     // };
 
     /* USE THE CODE DOWN */
-    // fetch(`http://127.0.0.1:8000/accview/${acc_name}`, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     return res.json();
-    //   })
+    fetch(`http://127.0.0.1:8000/accview/${accName}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
 
-    //   .then((res) => {
-    //     setPrice(res.RSC);
-    //     setAcc(res.acc_case);
-    //     console.log(res.RSC, res.acc_case);
-    //   });
+      .then((res) => {
+        // setPrice(res.RSC);
+        // setAcc(res.acc_case);
+        
+        setRowData(res.acc_case);
+        console.log(res.RSC, res.acc_case);
+      });
   };
   function onBtExport() {
     gridApi.exportDataAsCsv();
@@ -72,8 +74,9 @@ const Caseview = ({ acc_name }) => {
           defaultColGroupDef={{ marryChildren: true }}
           columnTypes={{
             numberColumn: {
-              width: 200,
+              width: "auto",
               filter: "agNumberColumnFilter",
+              // rowStyle: params => params.value > 80 ? { color: 'red' } : null
             },
             nonEditableColumn: { editable: false },
             dateColumn: {
@@ -104,6 +107,8 @@ const Caseview = ({ acc_name }) => {
             sortable="true"
             headerName="Case Number"
             field="case_number"
+            
+
           />
           <AgGridColumn
             sortable="true"
