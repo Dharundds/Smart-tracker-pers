@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import "./Home.css";
-import Alert from "../../Components/Alert/Alert";
+import Alert from "../../Components/Alert";
 function Home() {
   const [view, setView] = useState("Account View");
   const username = localStorage.getItem("username");
   const history = useHistory();
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/${username}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+  });
   return (
     <div class="home">
       <button

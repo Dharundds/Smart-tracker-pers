@@ -5,6 +5,7 @@ import Symbols from "../Symbols";
 
 const PEviews = () => {
   const history = useHistory();
+  const [price, setPrice] = useState([]);
   const [acc, setAcc] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [Key, setKey] = useState(0);
@@ -21,7 +22,9 @@ const PEviews = () => {
       })
 
       .then((res) => {
-        setAcc(res.accounts);
+        setPrice(res.RSC);
+        setAcc(res.acc_case);
+        console.log(res.RSC, res.acc_case);
       });
   }, []);
 
@@ -32,7 +35,7 @@ const PEviews = () => {
           Name:&nbsp; <span> {PE_name}</span>
         </h1>
       </div>
-      <div className="peAcc">
+      {/* <div className="peAcc">
         {Object.keys(acc).map((val, key) => (
           <div className="accName" key={key}>
             <h2 title="Account name">
@@ -78,7 +81,9 @@ const PEviews = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
+      {price}
+      {acc}
     </div>
   );
 };

@@ -4,34 +4,28 @@ from .serializers import *
 from .models import *
 
 
+class Home(APIView):
+    def get(self, request, uname):
+        snippets = PEModel.objects.filter(PE_name=uname)
+        serializer = PEViewSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+
 class AccountView(APIView):
     serializer_class = PEViewSerializer
 
     def get(self, request, uname):
         cont = {}
-        snippets = PEModel.objects.filter(PE_name=uname)
-        serializer = PEViewSerializer(snippets, many=True)
-        # -------------------------------------------------------
-        cus_nick = [val['cnickname'] for val in serializer.data]
-        acc = CaseView.objects.filter(account_name_formula__in=cus_nick)
+        acc = CaseView.objects.filter(account_name_formula=uname)
         acc_serializer = CaseViewSerializer(acc, many=True)
         # --------------------------------------------------------------
         rscs = [dt['sts_agent_name'] for dt in acc_serializer.data]
         rsc = ResourceNameModel.objects.filter(resource_name__in=rscs)
         rsc_serializer = RSCSerializer(rsc, many=True)
-        for n in cus_nick:
-            li = []
-            for a in acc_serializer.data:
-                if n == str(a['account_name_formula']):
-                    for r in rsc_serializer.data:
-                        if r['resource_name'] == str(a['sts_agent_name']):
-                            li.append(r["role"]+"|"+str(a['sts_agent_name']))
-            cont[n] = set(li)
 
         content = {
-            "PE": serializer.data,
             "RSC": rsc_serializer.data,
-            "accounts": cont,
+            "acc_case": acc_serializer.data,
         }
         return Response(content)
 
@@ -59,15 +53,15 @@ class CaseViews(APIView):
         pass
 
 
-class Caseview(APIView):
-    serializer_class = CaseViewSerializer
+# class Caseview(APIView):
+#     serializer_class = CaseViewSerializer
 
-    def get(self, request, name, pename):
-        data = CaseView.objects.filter(
-            sts_agent_name=name.split("|")[1], account_name_formula=pename)
-        serializer = CaseViewSerializer(data, many=True)
+#     def get(self, request, name, pename):
+#         data = CaseView.objects.filter(
+#             sts_agent_name=name.split("|")[1], account_name_formula=pename)
+#         serializer = CaseViewSerializer(data, many=True)
 
-        return Response(serializer.data)
+#         return Response(serializer.data)
 
 
 class TotalConsumptionView(APIView):
