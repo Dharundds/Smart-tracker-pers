@@ -1,31 +1,39 @@
 import { useState } from "react";
-import CaseViews from "../../Components/CaseViews";
-import PEviews from "../../Components/PEviews/PEviews";
+import { useHistory } from "react-router";
 import "./Home.css";
 import Alert from "../../Components/Alert/Alert";
 function Home() {
   const [view, setView] = useState("Account View");
   const username = localStorage.getItem("username");
-
+  const history = useHistory();
   return (
     <div class="home">
       <button
-        className="togle"
         onClick={() => {
-          if (view === "Case View") {
-            setView("Accounts View");
-          } else {
-            setView("Case View");
-          }
+          history.push("/caseviews");
         }}
       >
-        {view}
+        Case View
+      </button>
+      <button
+        onClick={() => {
+          history.push("/peviews");
+        }}
+      >
+        Accounts View
       </button>
       <Alert />
-      <div className="homeMC">
+      {/* <div className="homeMC">
         {view === "Case View" ? <PEviews name={username} /> : <CaseViews />}
-      </div>
+      </div> */}
     </div>
   );
 }
 export default Home;
+// onClick={() => {
+//   if (view === "Case View") {
+//     setView("Accounts View");
+//   } else {
+//     setView("Case View");
+//   }
+// }}

@@ -1,0 +1,13 @@
+.caseView button {
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    width: 200px;
+    height: 50px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #0062ff;
+  }

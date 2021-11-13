@@ -11,10 +11,11 @@ function Navbar() {
   const username = localStorage.getItem("username");
   if (localStorage.getItem("username") === null) {
     localStorage.setItem("username", location.state.name);
-  } else if (localStorage.getItem("username") !== location.state.name) {
-    localStorage.clear();
-    localStorage.setItem("username", location.state.name);
-  }
+  } 
+  // else if (localStorage.getItem("username") !== location.state.name) {
+  //   localStorage.clear();
+  //   localStorage.setItem("username", location.state.name);
+  // }
   return (
     <div className="NavBar">
       <div className="navBarContainer">

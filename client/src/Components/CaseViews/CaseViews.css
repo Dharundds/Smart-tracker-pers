@@ -1,6 +1,6 @@
 .caseViews button {
   position: absolute;
-  top: -60px;
+  top: 80px;
   left: 20px;
   width: 200px;
   height: 50px;
@@ -10,4 +10,8 @@
   color: #fff;
   cursor: pointer;
   background-color: #0062ff;
+}
+
+.ag-theme-alpine{
+  margin-top: 100px;
 }

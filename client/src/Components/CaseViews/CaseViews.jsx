@@ -40,10 +40,10 @@ const CaseViews = () => {
       >
         Export table as CSV
       </button>
-      <div className="ag-theme-alpine" style={{ height: "750px" }}>
+      <div className="ag-theme-alpine" style={{ height: "800px" }}>
         <AgGridReact
           defaultColDef={{
-            width: 140,
+            width: 210,
             editable: false,
             filter: "agTextColumnFilter",
             floatingFilter: true,
@@ -52,14 +52,10 @@ const CaseViews = () => {
           defaultColGroupDef={{ marryChildren: true }}
           columnTypes={{
             numberColumn: {
-              width: 130,
+              width: 200,
               filter: "agNumberColumnFilter",
             },
-            medalColumn: {
-              width: 100,
-              columnGroupShow: "open",
-              filter: false,
-            },
+            
             nonEditableColumn: { editable: false },
             dateColumn: {
               filter: "agDateColumnFilter",
@@ -124,7 +120,7 @@ const CaseViews = () => {
             headerName="Account Name"
             field="account_name_formula"
           />
-          <AgGridColumn
+          {/* <AgGridColumn
             sortable="true"
             headerName="Case support"
             field="case_support_mission"
@@ -152,7 +148,13 @@ const CaseViews = () => {
             headerName="Case Owner"
             field="case_owner"
             width="110"
-          />
+          /> */}
+          <AgGridColumn
+            sortable="true"
+            headerName="Cost"
+            field="cost"
+            editable="true"
+                  />
         </AgGridReact>
       </div>
     </div>

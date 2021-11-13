@@ -16,8 +16,6 @@ const Caseview = () => {
   const onGridReady = (params) => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
-    console.log(gridApi);
-    console.log(pename);
 
     fetch(`http://127.0.0.1:8000/caseview/${name}/${pename}`, {
       method: "GET",
@@ -32,12 +30,24 @@ const Caseview = () => {
         setRowData(data);
       });
   };
+  function onBtExport() {
+    gridApi.exportDataAsCsv();
+  }
 
   return (
+    <div className="caseView">
+    <button
+      onClick={() => {
+        onBtExport();
+      }}
+    >
+        Export table as CSV
+      
+    </button>
     <div className="ag-theme-alpine" style={{ height: "800px" }}>
       <AgGridReact
         defaultColDef={{
-          width: 140,
+          width: 210,
           editable: false,
           filter: "agTextColumnFilter",
           floatingFilter: true,
@@ -46,13 +56,8 @@ const Caseview = () => {
         defaultColGroupDef={{ marryChildren: true }}
         columnTypes={{
           numberColumn: {
-            width: 130,
+            width: 200,
             filter: "agNumberColumnFilter",
-          },
-          medalColumn: {
-            width: 100,
-            columnGroupShow: "open",
-            filter: false,
           },
           nonEditableColumn: { editable: false },
           dateColumn: {
@@ -118,36 +123,43 @@ const Caseview = () => {
           headerName="Account Name"
           field="account_name_formula"
         />
-        <AgGridColumn
-          sortable="true"
-          headerName="Case support"
-          field="case_support_mission"
-        />
-        <AgGridColumn
-          sortable="true"
-          headerName="Case Open Date"
-          field="case_opened_date"
-          type="dateColumn"
-        />
-        <AgGridColumn
-          sortable="true"
-          headerName="Status"
-          field="status"
-          type="numberColumn"
-        />
-        <AgGridColumn sortable="true" headerName="Product" field="product" />
-        <AgGridColumn
-          sortable="true"
-          headerName="Case Status"
-          field="case_status"
-        />
-        <AgGridColumn
-          sortable="true"
-          headerName="Case Owner"
-          field="case_owner"
-          width="110"
-        />
+        {/* <AgGridColumn
+            sortable="true"
+            headerName="Case support"
+            field="case_support_mission"
+          />
+          <AgGridColumn
+            sortable="true"
+            headerName="Case Open Date"
+            field="case_opened_date"
+            type="dateColumn"
+          />
+          <AgGridColumn
+            sortable="true"
+            headerName="Status"
+            field="status"
+            type="numberColumn"
+          />
+          <AgGridColumn sortable="true" headerName="Product" field="product" />
+          <AgGridColumn
+            sortable="true"
+            headerName="Case Status"
+            field="case_status"
+          />
+          <AgGridColumn
+            sortable="true"
+            headerName="Case Owner"
+            field="case_owner"
+            width="110"
+          /> */}
+          <AgGridColumn
+            sortable="true"
+            headerName="Cost"
+            field="cost"
+            editable="true"
+                  />
       </AgGridReact>
+    </div>
     </div>
   );
 };

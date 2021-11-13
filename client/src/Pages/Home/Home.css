@@ -3,15 +3,19 @@
   top: 50px;
 }
 .home {
-  margin-top: 100px;
+  margin-top: 200px;
+display: flex;
+margin-left: 100px;
+align-items: flex-start;
+flex-direction: column;
+justify-content: space-evenly;
+gap:150px;
+
 }
-.home .togle {
-  width: 200px;
-  height: 50px;
-  position: absolute;
+.home button {
+  width: 320px;
+  height: 70px;
   font-size: 1.2rem;
-  left: 20px;
-  top: 80px;
   border: none;
   border-radius: 5px;
   color: #fff;

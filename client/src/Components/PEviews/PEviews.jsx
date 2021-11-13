@@ -3,14 +3,14 @@ import "./PEviews.css";
 import { useHistory } from "react-router";
 import Symbols from "../Symbols";
 
-const PEviews = ({ name }) => {
+const PEviews = () => {
   const history = useHistory();
   const [acc, setAcc] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [Key, setKey] = useState(0);
   const PE_name = localStorage.getItem("username");
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/accview/${name}`, {
+    fetch(`http://127.0.0.1:8000/accview/${PE_name}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
