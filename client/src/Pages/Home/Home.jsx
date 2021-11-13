@@ -17,7 +17,7 @@ function Home() {
       .then((res) => {
         console.log(res);
       });
-  });
+  }, []);
   return (
     <div class="home">
       <button
