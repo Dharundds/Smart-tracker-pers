@@ -22,6 +22,16 @@ class AccountView(APIView):
         rscs = [dt['sts_agent_name'] for dt in acc_serializer.data]
         rsc = ResourceNameModel.objects.filter(resource_name__in=rscs)
         rsc_serializer = RSCSerializer(rsc, many=True)
+        # ---------------------------------------------------------------
+        for name in set(rscs):
+            thres = Threshold.objects.filter(acc_name=uname, rsc_name=name)
+            thres_serial = ThresholdSerializer(thres, many=True)
+            # print(thres_serial.data)
+            if len(thres_serial.data) == 0:
+                Threshold.objects.create(
+                    acc_name=uname,
+                    rsc_name=name
+                )
 
         content = {
             "RSC": rsc_serializer.data,
@@ -65,41 +75,58 @@ class CaseViews(APIView):
 
 
 class TotalConsumptionView(APIView):
-    serializers_class = RSCSerializer
     count = 0
-    cost = 0.00
-    full = 500
+    cost = 0.000
     is_70 = False
     is_100 = False
+    full = 100
 
-    def get(self, request, name, pename):
-        time_spt = CaseView.objects.filter(
-            sts_agent_name=name.split("|")[1], account_name_formula=pename)
-        price = ResourceNameModel.objects.filter(
-            role=name.split("|")[0], resource_name=name.split("|")[1])
-        serializer = CaseViewSerializer(time_spt, many=True)
-        s = RSCSerializer(price, many=True)
-        for data in serializer.data:
-            self.count += float(data['session_time'])
-        for i in s.data:
-            self.cost = i['cost']
-        tot = float(self.count) * float(self.cost)
-        if tot >= 0.70*self.full:
-            self.is_70 = True
-        elif tot >= self.full:
-            self.is_70 = False
-            self.is_100 = True
+    def get(self, request, pename):
+        content = []
+        thres = Threshold.objects.filter(acc_name=pename)
+        thres_serial = ThresholdSerializer(thres, many=True)
+        print(thres_serial.data)
+        for name in thres_serial.data:
+            time_spt = CaseView.objects.filter(
+                sts_agent_name=name['rsc_name'], account_name_formula=pename)
+            ts_serializer = CaseViewSerializer(time_spt, many=True)
+            # -----------------------------------------------------------------
+            price = ResourceNameModel.objects.filter(
+                resource_name=name['rsc_name'])
+            price_serializer = RSCSerializer(price, many=True)
+            # -----------------------------------------------------------------
 
-        content = {
-            'timespt': serializer.data,
-            'price': s.data,
-            "is_70": self.is_70,
-            "full": self.is_100,
-            "cost": self.cost,
-            "tot": tot,
-            "count": self.count,
-        }
-        return Response(content)
+            for data in ts_serializer.data:
+                self.count += float(data['session_time'])
+            for i in price_serializer.data:
+                self.cost = i['cost']
+            tot = float(self.count) * float(self.cost)
+            if tot >= 0.70*name['max_threshold']:
+                self.is_70 = True
+            elif tot >= name['max_threshold']:
+                self.is_70 = False
+                self.is_100 = True
+
+            cont = {
+                "name": name['rsc_name'],
+                "tot": tot,
+                "is_70": self.is_70,
+                "full": self.is_100,
+                "cost": self.cost,
+            }
+
+            content.append(cont)
+
+        # content = {
+        #     'timespt': ts_serializer.data,
+        #     'price': price_serializer.data,
+        #     "is_70": self.is_70,
+        #     "full": self.is_100,
+        #     "cost": self.cost,
+        #     "tot": tot,
+        #     "count": self.count,
+        # }
+        return Response({"content": content})
 
     def post(self, request, name, pename):
         print(request.data.get('threshold'))

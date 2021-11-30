@@ -56,10 +56,10 @@ class ResourceNameModel(models.Model):
 class Threshold(models.Model):
     acc_name = models.CharField(default="", max_length=255)
     rsc_name = models.CharField(default="", max_length=255)
-    max_threshold = models.IntegerField(default=100)
+    max_threshold = models.IntegerField(default=800)
 
     def __str__(self):
-        return str(self.max_threshold)
+        return str(self.acc_name)+" ---> " + str(self.rsc_name)
 
 
 def uploadfile():

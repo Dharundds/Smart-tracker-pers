@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CaseView.css";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
@@ -7,10 +7,25 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 const Caseview = () => {
   const location = useLocation();
-const accName=location.state.pename;
+  const accName = location.state.pename;
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/tot_consumption/${accName}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((data) => {
+        console.log(data.content);
+      });
+  }, []);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -44,7 +59,7 @@ const accName=location.state.pename;
       .then((res) => {
         // setPrice(res.RSC);
         // setAcc(res.acc_case);
-        
+
         setRowData(res.acc_case);
         console.log(res.RSC, res.acc_case);
       });
@@ -107,8 +122,6 @@ const accName=location.state.pename;
             sortable="true"
             headerName="Case Number"
             field="case_number"
-            
-
           />
           <AgGridColumn
             sortable="true"
