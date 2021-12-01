@@ -44,4 +44,4 @@ After installing node js ,run the following commands in a seperate shell
 
     env is required to run the db
 
-env should be placed in server/Smart-Tracking-pers Folder
+env should be placed unser server/Smart-tracker-pers Folder
