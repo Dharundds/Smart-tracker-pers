@@ -113,6 +113,7 @@ class TotalConsumptionView(APIView):
                 "is_70": self.is_70,
                 "full": self.is_100,
                 "cost": self.cost,
+                "max_thres": name['max_threshold']
             }
 
             content.append(cont)
