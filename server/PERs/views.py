@@ -32,15 +32,21 @@ class AccountView(APIView):
                     acc_name=uname,
                     rsc_name=name
                 )
-
+            else:
+                for thres in thres_serial.data:
+                    maxthres = thres['max_threshold']
         content = {
             "RSC": rsc_serializer.data,
             "acc_case": acc_serializer.data,
+            "max_thres": maxthres
         }
         return Response(content)
 
-    def post(self, request):
-        pass
+    def post(self, request, uname):
+        thres = Threshold.objects.filter(acc_name=uname).update(
+            max_threshold=int(request.data.get('thres')))
+        print(request.data.get('thres'))
+        return Response({"hi": "yes"})
 
 
 class CaseViews(APIView):

@@ -8,7 +8,8 @@ import Threshold from "../Threshold";
 const Caseview = () => {
   const location = useLocation();
   const accName = location.state.pename;
-  const [data,setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [maxThres, setMaxthres] = useState(800);
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState([]);
@@ -24,9 +25,8 @@ const Caseview = () => {
         return resp.json();
       })
       .then((data) => {
-        // console.log(data.content);
+        console.log(data.content);
         setData(data.content);
-        
       });
   }, []);
   const rowClassRules = {
@@ -51,7 +51,7 @@ const Caseview = () => {
     //     .then((data) => {
     //       setRowData(data);
     //     });
-    // }; 
+    // };
 
     /* USE THE CODE DOWN */
     fetch(`http://127.0.0.1:8000/accview/${accName}`, {
@@ -67,7 +67,8 @@ const Caseview = () => {
       .then((res) => {
         // setPrice(res.RSC);
         // setAcc(res.acc_case);
-
+        // console.log(res.max_thres);
+        setMaxthres(res.max_thres);
         setRowData(res.acc_case);
         // console.log(res.RSC, res.acc_case);
       });
@@ -75,15 +76,15 @@ const Caseview = () => {
   function onBtExport() {
     gridApi.exportDataAsCsv();
   }
-  const getRowStyle = params => {
-    data.forEach((res)=>{
-      console.log(res)
-    })
+  const getRowStyle = (params) => {
+    data.forEach((res) => {
+      console.log(res);
+    });
     if (params.data.case_number == "TS006326846") {
       // console.log(params.data.case_number)
-        return { background: 'red' };
+      return { background: "red" };
     }
-};
+  };
 
   return (
     <div className="caseView">
@@ -95,12 +96,9 @@ const Caseview = () => {
         Export table as CSV
       </button> */}
       <button>{accName}</button>
-      
-      <Threshold value="100" />
-      <div
-        className="ag-theme-alpine"
-        style={{ height: "800px" }}
-      >
+
+      <Threshold name={accName} value={maxThres} />
+      <div className="ag-theme-alpine" style={{ height: "800px" }}>
         <AgGridReact
           defaultColDef={{
             width: 210,
