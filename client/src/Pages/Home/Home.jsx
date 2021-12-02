@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import "./Home.css";
-import Alert from "../../Components/Alert";
+import Threshold from "../../Components/Threshold";
 function Home() {
   const username = localStorage.getItem("username");
   const history = useHistory();
@@ -33,7 +33,7 @@ function Home() {
       >
         Accounts View
       </button>
-      <Alert />
+      
       {/* <div className="homeMC">
         {view === "Case View" ? <PEviews name={username} /> : <CaseViews />}
       </div> */}

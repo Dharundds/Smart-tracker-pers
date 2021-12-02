@@ -4,11 +4,11 @@ import "./CaseView.css";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import Alert from "../Alert/Alert.jsx";
-
+import Threshold from "../Threshold";
 const Caseview = () => {
   const location = useLocation();
   const accName = location.state.pename;
+  const [data,setData] = useState([]);
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
   const [rowData, setRowData] = useState([]);
@@ -24,9 +24,16 @@ const Caseview = () => {
         return resp.json();
       })
       .then((data) => {
-        console.log(data.content);
+        // console.log(data.content);
+        setData(data.content);
+        
       });
   }, []);
+  const rowClassRules = {
+    "rag-green": "data.case_number",
+    "rag-amber": "data.age >= 20 && data.age < 25",
+    "rag-red": "data.age >= 25",
+  };
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -44,7 +51,7 @@ const Caseview = () => {
     //     .then((data) => {
     //       setRowData(data);
     //     });
-    // };
+    // }; 
 
     /* USE THE CODE DOWN */
     fetch(`http://127.0.0.1:8000/accview/${accName}`, {
@@ -62,24 +69,38 @@ const Caseview = () => {
         // setAcc(res.acc_case);
 
         setRowData(res.acc_case);
-        console.log(res.RSC, res.acc_case);
+        // console.log(res.RSC, res.acc_case);
       });
   };
   function onBtExport() {
     gridApi.exportDataAsCsv();
   }
+  const getRowStyle = params => {
+    data.forEach((res)=>{
+      console.log(res)
+    })
+    if (params.data.case_number == "TS006326846") {
+      // console.log(params.data.case_number)
+        return { background: 'red' };
+    }
+};
 
   return (
     <div className="caseView">
-      <button
+      {/* <button
         onClick={() => {
           onBtExport();
         }}
       >
         Export table as CSV
-      </button>
-      <Alert severity="high" pe_name="name" />
-      <div className="ag-theme-alpine" style={{ height: "800px" }}>
+      </button> */}
+      <button>{accName}</button>
+      
+      <Threshold value="100" />
+      <div
+        className="ag-theme-alpine"
+        style={{ height: "800px" }}
+      >
         <AgGridReact
           defaultColDef={{
             width: 210,
@@ -88,6 +109,8 @@ const Caseview = () => {
             floatingFilter: true,
             resizable: true,
           }}
+          rowClassRules={rowClassRules}
+          getRowStyle={getRowStyle}
           defaultColGroupDef={{ marryChildren: true }}
           columnTypes={{
             numberColumn: {
