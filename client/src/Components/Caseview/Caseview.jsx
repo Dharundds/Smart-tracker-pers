@@ -4,6 +4,7 @@ import "./CaseView.css";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+import Alert from "../Alert/Alert.jsx";
 
 const Caseview = () => {
   const location = useLocation();
@@ -77,6 +78,7 @@ const Caseview = () => {
       >
         Export table as CSV
       </button>
+      <Alert severity="high" pe_name="name" />
       <div className="ag-theme-alpine" style={{ height: "800px" }}>
         <AgGridReact
           defaultColDef={{

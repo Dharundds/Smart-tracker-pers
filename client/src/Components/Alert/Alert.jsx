@@ -1,15 +1,21 @@
 import "./Alert.css";
-const Alert = () => {
+
+const Alert = ({ severity, pe_name }) => {
+  console.log(severity);
+  if (severity === "med") {
+    return (
+      <div className="alert">
+        <div className="orangeAlert">
+          <p>{pe_name}You are hitting The consumption price</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="alert">
-      <div className="orangeAlert">
-        <p>You are hitting The consumption price</p>
-        {/* <a>readmore!</a> */}
-      </div>
-      <br />
       <div className="redAlert">
-        <p>You have crossed the consumption price</p>
-        {/* <a>readmore!</a> */}
+        <p> have crossed the consumption price</p>
       </div>
     </div>
   );
